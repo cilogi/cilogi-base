@@ -1,0 +1,8 @@
+{
+    "int" : 1,
+    "string" : "car",
+    "float" : 3.14159262,
+    "list" : ["one", "flew", "over", "the cuckoos", "nest"],
+    "email" : "tim.niblett@cilogi.com",
+    "boolean" : true
+}
