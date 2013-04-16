@@ -19,16 +19,13 @@
 //
 
 
-package com.cilogi.util;
+package com.cilogi.util.cache;
 
 public interface IMemcached {
 
-    public void put(String key, String value);
-    public void put(String key, long value);
     public void put(String key, byte[] data);
 
+    public byte[] get(String key);
     public String getString(String key);
-    public long getLong(String key);
-    public byte[] getBytes(String key);
 
 }

@@ -19,12 +19,14 @@
 //
 
 
-package com.cilogi.util;
+package com.cilogi.util.cache;
 
+import com.cilogi.util.Digest;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.MemcachedClient;
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -43,41 +45,41 @@ public class Memcached implements IMemcached {
     
     private final String prefix;
     private final MemcachedClient client;
+    private final int cacheTimeSeconds;
 
     public Memcached(String prefix) throws IOException {
-        Preconditions.checkNotNull(prefix);
+        this(prefix, DEFAULT_CACHE_TIME);
+    }
+
+    public Memcached(String prefix, int cacheTimeSeconds) throws IOException {
+        Preconditions.checkNotNull(prefix, "Cache prefix must be non null, class name is good");
+        Preconditions.checkArgument(cacheTimeSeconds > 0, "Cache time must be > 0");
+
         this.prefix = prefix;
+        this.cacheTimeSeconds = cacheTimeSeconds;
+
         this.client = new MemcachedClient(new ConnectionFactoryBuilder()
                 .setDaemon(true)
                 .build(),
                 Arrays.asList(new InetSocketAddress("localhost", DEFAULT_MEMCACHED_PORT)));
     }
 
-    public void put(String key, String value) {
-        put(key, value, DEFAULT_CACHE_TIME);
-    }
-
-    public void put(String key, long value) {
-        put(key, Long.toString(value));
-    }
-
-
-    public void put(String key, String value, int cacheTime) {
-        Preconditions.checkNotNull(key, "memcached key can't be null");
-        Preconditions.checkNotNull(value, "memcached value can't be null");
-        Preconditions.checkArgument(cacheTime > 0, "cache time must be > 0 seconds, not " + cacheTime);
-        client.set(makeSafe(key), cacheTime, value);
-    }
 
     @Override
-    public byte[] getBytes(String key) {
+    public byte[] get(String key) {
         Preconditions.checkNotNull(key, "memcached key to retrieve can't be null");
         return (byte[])client.get(makeSafe(key));
     }
 
     @Override
-    public void put(String key, byte[] value) {
-        put(key, value, DEFAULT_CACHE_TIME);
+    public String getString(String key) {
+        byte[] data = get(key);
+        return (data == null) ? null : (String) SerializationUtils.deserialize(data);
+    }
+
+    @Override
+    public void put(String key, byte[] data) {
+        put(key, data, cacheTimeSeconds);
     }
 
     public void put(String key, byte[] value, int cacheTime) {
@@ -87,22 +89,6 @@ public class Memcached implements IMemcached {
         client.set(makeSafe(key), cacheTime, value);
     }
 
-    public String getString(String key) {
-        Preconditions.checkNotNull(key, "memcached key to retrieve can't be null");
-        return (String)client.get(makeSafe(key));
-    }
-
-
-    /**
-     * Get a long
-     * @param key The key to look for
-     * @return  0 if there is no key or the retrieved value
-     */
-    public long getLong(String key) {
-        Preconditions.checkNotNull(key, "memcached key to retrieve can't be null");
-        String value = getString(key);
-        return (value == null) ? 0 : Long.parseLong(value);
-    }
 
     String makeSafe(String key) {
         char[] ILLEGALS = {'\n','\r','\t','\0'};
@@ -129,5 +115,4 @@ public class Memcached implements IMemcached {
             return (hash.length() <= MAX_KEY_LENGTH) ? hash : hash.substring(0, MAX_KEY_LENGTH);
         }
     }
-
 }

@@ -19,8 +19,9 @@
 //
 
 
-package com.cilogi.util;
+package com.cilogi.util.cache;
 
+import com.cilogi.util.cache.Memcached;
 import com.google.common.collect.Lists;
 import junit.framework.TestCase;
 import net.spy.memcached.ConnectionFactory;

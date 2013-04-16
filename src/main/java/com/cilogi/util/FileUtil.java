@@ -53,7 +53,7 @@ public class FileUtil {
             public FileVisitResult postVisitDirectory(Path dirFile,
                                                       IOException exc) throws IOException {
                 if (exc == null) {
-                    if (dirFile.equals(dir) && isDeleteDirectory) {
+                    if (!dirFile.equals(dir) && isDeleteDirectory) {
                         Files.delete(dirFile);
                     }
                     return CONTINUE;
