@@ -35,7 +35,6 @@ public class TestHistoStatistics extends TestCase {
     public TestHistoStatistics(String nm) {
         super(nm);
         if (config) {
-            PropertyConfigurator.configure(getClass().getResource("testlog.cfg"));
             config = false;
         }
     }

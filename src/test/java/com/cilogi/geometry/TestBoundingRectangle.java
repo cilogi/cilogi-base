@@ -31,7 +31,6 @@ public class TestBoundingRectangle extends TestCase {
 
     public TestBoundingRectangle(String nm) {
         super(nm);
-        PropertyConfigurator.configure(getClass().getResource("testlog.cfg"));
     }
 
     @Override

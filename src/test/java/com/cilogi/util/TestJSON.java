@@ -35,7 +35,6 @@ public class TestJSON extends TestCase {
 
     public TestJSON(String nm) {
         super(nm);
-        PropertyConfigurator.configure(getClass().getResource("testlog.cfg"));
     }
 
     @Override

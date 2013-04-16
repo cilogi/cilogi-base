@@ -32,7 +32,6 @@ public class TestBase64Codec  extends TestCase {
     static final Logger LOG = LoggerFactory.getLogger(TestBase64Codec.class);
 
     public TestBase64Codec() {
-        PropertyConfigurator.configure(getClass().getResource("testlog.cfg"));
     }
 
     public void testJim() {

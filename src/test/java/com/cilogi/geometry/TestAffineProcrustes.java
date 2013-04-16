@@ -34,7 +34,6 @@ public class TestAffineProcrustes extends TestCase {
 
     public TestAffineProcrustes(String nm) {
         super(nm);
-        PropertyConfigurator.configure(getClass().getResource("testlog.cfg"));
     }
 
     @Override

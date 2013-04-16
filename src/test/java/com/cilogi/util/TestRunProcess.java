@@ -33,8 +33,6 @@ public class TestRunProcess extends TestCase {
 
     public TestRunProcess(String nm) {
         super(nm);
-        PropertyConfigurator.configure(TestRunProcess.class.getResource("testlog.cfg"));
-
     }
 
     @Override

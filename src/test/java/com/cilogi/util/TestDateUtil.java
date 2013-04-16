@@ -38,7 +38,6 @@ public class TestDateUtil extends TestCase {
 
     public TestDateUtil(String nm) {
         super(nm);
-        PropertyConfigurator.configure(getClass().getResource("testlog.cfg"));
     }
 
     @Override

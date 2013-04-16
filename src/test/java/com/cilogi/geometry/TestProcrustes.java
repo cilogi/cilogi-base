@@ -33,7 +33,6 @@ public class TestProcrustes extends TestCase {
 
     public TestProcrustes(String nm) {
         super(nm);
-        PropertyConfigurator.configure(getClass().getResource("testlog.cfg"));
     }
 
     @Override
