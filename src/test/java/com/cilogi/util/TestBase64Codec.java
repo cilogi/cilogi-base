@@ -22,12 +22,14 @@ package com.cilogi.util;
 
 import com.google.common.base.Charsets;
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.apache.log4j.PropertyConfigurator;
 
 
 public class TestBase64Codec  extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestBase64Codec.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestBase64Codec.class);
 
     public TestBase64Codec() {
         PropertyConfigurator.configure(getClass().getResource("testlog.cfg"));

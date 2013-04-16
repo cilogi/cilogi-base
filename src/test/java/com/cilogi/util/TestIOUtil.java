@@ -23,10 +23,11 @@ package com.cilogi.util;
 
 import com.google.common.base.Charsets;
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestIOUtil extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestIOUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestIOUtil.class);
 
 
     public TestIOUtil(String nm) {

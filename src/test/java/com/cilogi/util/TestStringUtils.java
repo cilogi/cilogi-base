@@ -23,12 +23,13 @@ package com.cilogi.util;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestStringUtils {
-    static final Logger LOG = Logger.getLogger(TestStringUtils.class.getName());
+    static final Logger LOG = LoggerFactory.getLogger(TestStringUtils.class);
 
 
     public TestStringUtils() {

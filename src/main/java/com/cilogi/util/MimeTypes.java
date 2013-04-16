@@ -24,7 +24,8 @@ package com.cilogi.util;
 
 
 import com.google.common.collect.Sets;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -34,7 +35,7 @@ import java.util.Set;
  * http://www.iana.org/assignments/media-types/
  */
 public class MimeTypes {
-    static final Logger LOG = Logger.getLogger(MimeTypes.class);
+    static final Logger LOG = LoggerFactory.getLogger(MimeTypes.class);
 
     public static final String MIME_APPLICATION_ANDREW_INSET = "application/andrew-inset";
     public static final String MIME_APPLICATION_JSON = "application/json";

@@ -21,14 +21,15 @@
 package com.cilogi.geometry;
 
 import com.google.common.collect.Lists;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.vecmath.Point2d;
 import java.util.List;
 
 
 class Procrustes2DLL {
-    static final Logger LOG = Logger.getLogger(Procrustes2DLL.class);
+    static final Logger LOG = LoggerFactory.getLogger(Procrustes2DLL.class);
 
     private Procrustes2D procrustes;
 

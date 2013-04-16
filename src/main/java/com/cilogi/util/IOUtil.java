@@ -22,6 +22,8 @@
 package com.cilogi.util;
 
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URL;
@@ -30,12 +32,11 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class IOUtil {
-    static final Logger LOG = Logger.getLogger(IOUtil.class.getName());
+    static final Logger LOG = LoggerFactory.getLogger(IOUtil.class);
 
     private static final int BUFSZ =  16384;
 

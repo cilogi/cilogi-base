@@ -22,10 +22,11 @@
 package com.cilogi.util;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestMimeTypes extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestMimeTypes.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestMimeTypes.class);
 
 
     public TestMimeTypes(String nm) {

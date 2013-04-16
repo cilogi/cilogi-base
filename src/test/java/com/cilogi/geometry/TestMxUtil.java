@@ -21,13 +21,14 @@
 package com.cilogi.geometry;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.vecmath.Matrix3d;
 import java.awt.geom.AffineTransform;
 
 public class TestMxUtil extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestMxUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestMxUtil.class);
 
 
     public TestMxUtil(String nm) {

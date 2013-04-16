@@ -20,7 +20,8 @@
 
 package com.cilogi.util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class FileUtil {
-    static final Logger LOG = Logger.getLogger(FileUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(FileUtil.class);
 
     private FileUtil() {}
 

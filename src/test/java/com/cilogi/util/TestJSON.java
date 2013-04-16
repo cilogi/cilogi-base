@@ -21,7 +21,8 @@
 package com.cilogi.util;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class TestJSON extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestJSON.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestJSON.class);
 
 
     public TestJSON(String nm) {

@@ -20,7 +20,8 @@
 
 package com.cilogi.util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -72,7 +73,7 @@ import java.io.*;
  * @version 2.1
  */
 public class Base64Codec {
-    static final Logger LOG = Logger.getLogger(Base64Codec.class);
+    static final Logger LOG = LoggerFactory.getLogger(Base64Codec.class);
 
 
     /**

@@ -21,7 +21,8 @@
 package com.cilogi.geometry;
 
 import com.cilogi.util.Statistics;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.vecmath.Matrix3d;
 import javax.vecmath.Point2d;
@@ -30,7 +31,7 @@ import java.awt.geom.AffineTransform;
 import java.util.List;
 
 public class Procrustes2D implements IPointTransformer {
-    static final Logger LOG = Logger.getLogger(Procrustes2D.class);
+    static final Logger LOG = LoggerFactory.getLogger(Procrustes2D.class);
 
     private Matrix3d transform;
 

@@ -21,7 +21,8 @@
 
 package com.cilogi.util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -29,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class LimitedExecutor extends ThreadPoolExecutor {
-    static final Logger LOG = Logger.getLogger(LimitedExecutor.class);
+    static final Logger LOG = LoggerFactory.getLogger(LimitedExecutor.class);
 
     private final int nThreads;
 

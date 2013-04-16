@@ -20,14 +20,15 @@
 
 package com.cilogi.geometry;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.vecmath.Matrix3d;
 import java.awt.geom.AffineTransform;
 
 
 public class MxUtil {
-    static final Logger LOG = Logger.getLogger(MxUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(MxUtil.class);
 
     private MxUtil() {
 

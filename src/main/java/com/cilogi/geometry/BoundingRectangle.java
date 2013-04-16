@@ -20,13 +20,14 @@
 
 package com.cilogi.geometry;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.vecmath.Point2d;
 import javax.vecmath.Tuple2d;
 
 public class BoundingRectangle {
-    static final Logger LOG = Logger.getLogger(BoundingRectangle.class);
+    static final Logger LOG = LoggerFactory.getLogger(BoundingRectangle.class);
 
     public static final int N_BOUNDARY_POINTS = 4;
 

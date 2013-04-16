@@ -21,13 +21,14 @@
 package com.cilogi.util;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.io.IOException;
 
 public class TestRunProcess extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestRunProcess.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestRunProcess.class);
 
 
     public TestRunProcess(String nm) {

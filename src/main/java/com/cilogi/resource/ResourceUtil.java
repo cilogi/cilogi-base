@@ -25,9 +25,10 @@ import com.cilogi.util.DateUtil;
 import com.cilogi.util.IOUtil;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -42,7 +43,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ResourceUtil {
-    static final Logger LOG = Logger.getLogger(ResourceUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(ResourceUtil.class);
 
     private ResourceUtil() {
 

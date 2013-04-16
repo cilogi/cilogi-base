@@ -20,13 +20,14 @@
 
 package com.cilogi.resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
 
 public class MemoryResourceStore extends BaseResourceStore {
-    static final Logger LOG = Logger.getLogger(MemoryResourceStore.class);
+    static final Logger LOG = LoggerFactory.getLogger(MemoryResourceStore.class);
 
     public MemoryResourceStore() {
         super();

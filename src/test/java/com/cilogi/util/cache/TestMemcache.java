@@ -21,14 +21,14 @@
 
 package com.cilogi.util.cache;
 
-import com.cilogi.util.cache.Memcached;
 import com.google.common.collect.Lists;
 import junit.framework.TestCase;
 import net.spy.memcached.ConnectionFactory;
 import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.MemcachedClient;
 import net.spy.memcached.transcoders.SerializingTranscoder;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class TestMemcache extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestMemcache.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestMemcache.class);
 
 
     public TestMemcache(String nm) {

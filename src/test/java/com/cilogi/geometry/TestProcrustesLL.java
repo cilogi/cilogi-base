@@ -21,12 +21,13 @@
 package com.cilogi.geometry;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.vecmath.Point2d;
 
 public class TestProcrustesLL extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestProcrustesLL.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestProcrustesLL.class);
 
 
     public TestProcrustesLL(String nm) {

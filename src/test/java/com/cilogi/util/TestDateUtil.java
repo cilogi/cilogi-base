@@ -22,7 +22,9 @@
 package com.cilogi.util;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.apache.log4j.PropertyConfigurator;
 import org.joda.time.DateTime;
 
@@ -31,7 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TestDateUtil extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestDateUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestDateUtil.class);
 
 
     public TestDateUtil(String nm) {

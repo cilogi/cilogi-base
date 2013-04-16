@@ -22,8 +22,9 @@
 package com.cilogi.util;
 
 import com.google.common.base.Preconditions;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.joda.time.DateTime;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,7 +34,7 @@ import java.util.Locale;
 import java.util.SimpleTimeZone;
 
 public class DateUtil {
-    static final Logger LOG = Logger.getLogger(DateUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(DateUtil.class);
 
     private DateUtil() {
 

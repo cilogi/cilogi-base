@@ -21,11 +21,12 @@
 package com.cilogi.geometry;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.LoggerFactory;
 
 public class TestBoundingRectangle extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestBoundingRectangle.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestBoundingRectangle.class);
 
 
     public TestBoundingRectangle(String nm) {

@@ -22,9 +22,10 @@ package com.cilogi.util.cache;
 
 import com.google.common.cache.CacheLoader;
 import org.apache.commons.lang3.SerializationUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.logging.Logger;
 
 /**
  * This class can only be used when you're running a Memcached server locally.  The idea
@@ -32,7 +33,7 @@ import java.util.logging.Logger;
  * @param <T>
  */
 public class MemcacheClassLoader<T> extends CacheLoader<String,T> {
-    static final Logger LOG = Logger.getLogger(MemcacheClassLoader.class.getName());
+    static final Logger LOG = LoggerFactory.getLogger(MemcacheClassLoader.class);
 
     private final IMemcached cache;
     private final CacheLoader<String,T> base;

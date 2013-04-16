@@ -27,7 +27,8 @@ import com.google.common.base.Preconditions;
 import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.MemcachedClient;
 import org.apache.commons.lang3.SerializationUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -35,7 +36,7 @@ import java.util.Arrays;
 
 
 public class Memcached implements IMemcached {
-    static final Logger LOG = Logger.getLogger(Memcached.class);
+    static final Logger LOG = LoggerFactory.getLogger(Memcached.class);
 
     // default time to cache is 1 week
     private static final int DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;

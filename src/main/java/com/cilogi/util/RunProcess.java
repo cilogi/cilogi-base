@@ -22,7 +22,8 @@ package com.cilogi.util;
 
 
 import com.google.common.base.Preconditions;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Map;
@@ -31,7 +32,7 @@ import java.util.Map;
  * Run an operating system process in a separate thread.
  */
 public class RunProcess {
-    static final Logger LOG = Logger.getLogger(RunProcess.class);
+    static final Logger LOG = LoggerFactory.getLogger(RunProcess.class);
 
     private ProcessBuilder builder;
     private Process process;

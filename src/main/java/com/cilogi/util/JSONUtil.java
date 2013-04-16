@@ -23,17 +23,18 @@ package com.cilogi.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class JSONUtil {
-    static final Logger LOG = Logger.getLogger(JSONUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(JSONUtil.class);
 
     private JSONUtil() {
 

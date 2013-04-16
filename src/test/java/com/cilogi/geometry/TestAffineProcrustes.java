@@ -21,14 +21,15 @@
 package com.cilogi.geometry;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.LoggerFactory;
 
 import javax.vecmath.Matrix3d;
 import javax.vecmath.Point2d;
 
 public class TestAffineProcrustes extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestAffineProcrustes.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestAffineProcrustes.class);
 
 
     public TestAffineProcrustes(String nm) {

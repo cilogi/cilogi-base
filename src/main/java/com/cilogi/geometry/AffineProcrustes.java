@@ -22,7 +22,8 @@ package com.cilogi.geometry;
 
 import com.cilogi.algebra.linear.LeastSquaresColt;
 import com.cilogi.util.Statistics;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.vecmath.*;
 import java.awt.geom.AffineTransform;
@@ -30,7 +31,7 @@ import java.util.List;
 
 
 public class AffineProcrustes {
-    static final Logger LOG = Logger.getLogger(AffineProcrustes.class);
+    static final Logger LOG = LoggerFactory.getLogger(AffineProcrustes.class);
 
     private Matrix3d mx;
     private Point2d[] from;

@@ -24,14 +24,16 @@ import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.impl.DenseDoubleMatrix2D;
 import cern.colt.matrix.linalg.Algebra;
 import cern.colt.matrix.linalg.QRDecomposition;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Least squares via QR decoposition.  Uses Colt library
  */
 public class LeastSquaresColt {
     static final Logger LOG =
-            Logger.getLogger(LeastSquaresColt.class);
+            LoggerFactory.getLogger(LeastSquaresColt.class);
 
     private double conditionNumberLimit = 1e38;
 

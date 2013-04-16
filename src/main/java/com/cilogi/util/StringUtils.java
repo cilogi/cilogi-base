@@ -24,7 +24,8 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -36,7 +37,7 @@ import java.util.Map;
 
 
 public class StringUtils {
-    static final Logger LOG = Logger.getLogger(StringUtils.class);
+    static final Logger LOG = LoggerFactory.getLogger(StringUtils.class);
 
     private StringUtils() {}
     

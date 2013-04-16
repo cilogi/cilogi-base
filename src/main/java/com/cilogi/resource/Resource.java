@@ -26,14 +26,15 @@ import com.cilogi.util.MimeTypes;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
-import java.util.logging.Logger;
 
 // Not sure if I should make this class immutable or not.
 // At the moment its not.
 public class Resource implements IResource, Comparable<Resource> {
-    static final Logger LOG = Logger.getLogger(Resource.class.getName());
+    static final Logger LOG = LoggerFactory.getLogger(Resource.class);
 
     private final String path;
 
