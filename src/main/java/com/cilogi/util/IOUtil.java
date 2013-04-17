@@ -32,8 +32,10 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
+import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+import java.util.zip.InflaterInputStream;
 
 public class IOUtil {
     static final Logger LOG = LoggerFactory.getLogger(IOUtil.class);
@@ -50,25 +52,6 @@ public class IOUtil {
 
     public static byte[] loadBytes(File file) throws IOException {
         return loadBytes(file.toURI().toURL());
-        // Channels weren't closing, which meant files can't later be changed/deleted
-        // its a windows bug according to Oracle...
-        /*
-        FileInputStream is = new FileInputStream(file);
-        try {
-            FileChannel channel = is.getChannel();
-            long sz = channel.size();
-            if (sz > Integer.MAX_VALUE) {
-                throw new UnsupportedOperationException("The size of the file is too big at " + sz + " bytes");
-            }
-            ByteBuffer buf = channel.map(FileChannel.MapMode.READ_ONLY, 0, sz);
-            byte[] out = new byte[(int)sz];
-            buf.get(out);
-            channel.close();
-            return out;
-        } finally {
-            is.close();
-        }
-        */
     }
 
     public static List<String> loadLines(File file) throws IOException {
@@ -116,6 +99,32 @@ public class IOUtil {
             throw new RuntimeException(e);
         }
     }
+
+    public static byte[] deflate(byte[] data) {
+        try {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            DeflaterOutputStream gos = new DeflaterOutputStream(os);
+            gos.write(data, 0, data.length);
+            gos.finish();
+            gos.close();
+            return os.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static byte[] inflate(byte[] data) {
+        try {
+            ByteArrayInputStream is = new ByteArrayInputStream(data);
+            InflaterInputStream gis = new InflaterInputStream(is);
+            byte[] out = IOUtil.copyStream(gis);
+            gis.close();
+            return out;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public static byte[] copyStream(InputStream in) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(BUFSZ * 20);

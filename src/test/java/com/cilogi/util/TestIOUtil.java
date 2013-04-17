@@ -45,4 +45,11 @@ public class TestIOUtil extends TestCase {
         byte[] unzipped = IOUtil.gunzip(zipped);
         assertEquals(in, new String(unzipped, Charsets.UTF_8));
     }
+
+    public void testInflateDeflate() {
+        String in = "Hello World";
+        byte[] zipped = IOUtil.deflate(in.getBytes(Charsets.UTF_8));
+        byte[] unzipped = IOUtil.inflate(zipped);
+        assertEquals(in, new String(unzipped, Charsets.UTF_8));
+    }
 }
