@@ -34,6 +34,8 @@ import java.util.regex.Pattern;
 
 public abstract class BaseResourceStore implements IResourceStore {
 
+    private static final int MAX_NUMBER_OF_RESOURCES = 25000;
+
     protected final List<IResource> resources;
     private final Set<String> externalResourceNames;
 
@@ -52,6 +54,10 @@ public abstract class BaseResourceStore implements IResourceStore {
         return Collections.unmodifiableSet(externalResourceNames);
     }
 
+    @Override
+    public synchronized List<String> list(String pattern) {
+        return list(pattern, MAX_NUMBER_OF_RESOURCES);
+    }
 
     @Override
     public synchronized List<String> list(String pattern, int maxNumberToReturn) {

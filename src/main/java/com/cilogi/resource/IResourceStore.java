@@ -30,7 +30,15 @@ public interface IResourceStore {
     public void addExternalResource(String name);
 
     public Set<String> getExternalResourceNames();
-    
+
+    /**
+     * List resources in the store matching a particular prefix.
+     * @param pattern The matching pattern, a regex
+     * @return  A list of the resources with this pattern.
+     * @throws ResourceStoreException if there is an issue.
+     */
+    public List<String> list(String pattern);
+
     /**
      * List resources in the store matching a particular prefix.
      * @param pattern The matching pattern, a regex
