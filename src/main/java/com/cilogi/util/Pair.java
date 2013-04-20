@@ -35,7 +35,7 @@ public class Pair<S,T> {
         return new Pair<S,T>(first, second);
     }
 
-    private Pair(S first, T second) {
+    protected Pair(S first, T second) {
         this.first = first;
         this.second = second;
     }
