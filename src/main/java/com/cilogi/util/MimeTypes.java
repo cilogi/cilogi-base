@@ -365,6 +365,13 @@ public class MimeTypes {
         return getMimeType((idx == -1) ? path : path.substring(idx+1));
     }
 
+
+    public static String getMimeTypeFromPath(String path, String deflt) {
+        int idx = path.lastIndexOf(".");
+        return getMimeType((idx == -1) ? path : path.substring(idx+1), deflt);
+    }
+
+
     public static boolean isImageMimeType(String mimeType) {
         return IMAGE_MIMES.contains(mimeType);
     }
@@ -378,6 +385,14 @@ public class MimeTypes {
         String mimeType = lookupMimeType(ext);
         if (mimeType == null) {
             mimeType = MIME_APPLICATION_OCTET_STREAM;
+        }
+        return mimeType;
+    }
+
+    public static String getMimeType(String ext, String deflt) {
+        String mimeType = lookupMimeType(ext);
+        if (mimeType == null) {
+            mimeType = deflt;
         }
         return mimeType;
     }

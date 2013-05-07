@@ -32,6 +32,7 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -192,4 +193,27 @@ public class IOUtil {
         }
         return out.toString();
     }
+
+
+    public static Properties loadProperties(URL resource) {
+        InputStream is = null;
+        try {
+            is = resource.openStream();
+            Properties p = new Properties();
+            p.load(is);
+            is.close();
+            return p;
+        } catch (IOException e) {
+            return null;
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+        }
+    }
+
 }

@@ -244,12 +244,20 @@ public class BoundingRectangle {
         return false;
     }
 
-    public void addPoint(Tuple2d p) {
-        if (minx > p.x) minx = p.x;
-        if (miny > p.y) miny = p.y;
-        if (maxx < p.x) maxx = p.x;
-        if (maxy < p.y) maxy = p.y;
+    public BoundingRectangle addPoint(Tuple2d p) {
+        return addPoint(p.x, p.y);
     }
+
+
+    public BoundingRectangle addPoint(double x, double y) {
+        return new BoundingRectangle(
+            (minx > x) ? x : minx,
+            (miny > y) ? y : miny,
+            (maxx < x) ? x : maxx,
+            (maxy < y) ? y : maxy
+        );
+    }
+
 
     public Point2d getMin() {
         return new Point2d(minx, miny);
