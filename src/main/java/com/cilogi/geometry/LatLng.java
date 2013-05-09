@@ -25,30 +25,33 @@ import java.io.Serializable;
 
 public class LatLng implements Serializable {
 
-    private final double lat;
-    private final double lon;
+    public static final double DEG_TO_RAD =  Math.PI / 180.0;
+    public static final double RAD_TO_DEG =  180.0 / Math.PI;
 
-    public LatLng(double lat, double lon) {
+    private final double lat;
+    private final double lng;
+
+    public LatLng(double lat, double lng) {
         this.lat = lat;
-        this.lon = lon;
+        this.lng = lng;
     }
 
     public double getLat() {
         return lat;
     }
 
-    public double getLon() {
-        return lon;
+    public double getLng() {
+        return lng;
     }
     
     @Override
     public String toString() {
-        return "[" + lat + "," + lon + "]";
+        return "[" + lat + "," + lng + "]";
     }
 
     @Override
     public int hashCode() {
-        long bits = Double.doubleToLongBits(lat) * 31L + Double.doubleToLongBits(lon);
+        long bits = Double.doubleToLongBits(lat) * 31L + Double.doubleToLongBits(lng);
         return (int)(bits ^ (bits >>> 32));
     }
 
@@ -57,7 +60,7 @@ public class LatLng implements Serializable {
         if (o instanceof LatLng) {
             LatLng ll = (LatLng)o;
             return Double.doubleToLongBits(ll.lat) == Double.doubleToLongBits(lat) &&
-                   Double.doubleToLongBits(ll.lon) == Double.doubleToLongBits(lon);
+                   Double.doubleToLongBits(ll.lng) == Double.doubleToLongBits(lng);
         }
         return false;
     }
