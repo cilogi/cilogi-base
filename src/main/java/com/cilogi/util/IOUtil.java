@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.Collections;
@@ -52,7 +53,13 @@ public class IOUtil {
     }
 
     public static byte[] loadBytes(File file) throws IOException {
-        return loadBytes(file.toURI().toURL());
+        //return loadBytes(file.toURI().toURL());
+        final FileChannel channel = new FileInputStream(file).getChannel();
+        final long size = channel.size();
+        MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
+        byte[] out = new byte[(int)size];
+        buffer.get(out);
+        return out;
     }
 
     public static List<String> loadLines(File file) throws IOException {

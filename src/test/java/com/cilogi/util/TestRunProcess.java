@@ -42,7 +42,7 @@ public class TestRunProcess extends TestCase {
 
     public void testConvert() throws IOException {
         byte[] imgData = IOUtil.loadBytes(getClass().getResource("process.png"));
-        RunProcess run = new RunProcess("C:\\Program Files\\ImageMagick-6.7.5-Q16\\convert.exe",
+        RunProcess run = new RunProcess("C:\\Program Files\\ImageMagick-6.8.5-Q16\\convert.exe",
                 "-define", "png:format=png8",
                 "-define", "png:compression-level=9",
                 "-", "-");

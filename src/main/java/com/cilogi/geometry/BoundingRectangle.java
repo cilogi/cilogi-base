@@ -225,7 +225,7 @@ public class BoundingRectangle {
 
     public boolean intersectsSphere(Point2d center, double radius) {
         if (radius < 0) {
-            throw new IllegalArgumentException("radiuss must be non-negative, not " + radius);
+            throw new IllegalArgumentException("radius must be non-negative, not " + radius);
         }
         double rsq = radius * radius;
         Point2d p = new Point2d(minx, miny);
@@ -250,6 +250,10 @@ public class BoundingRectangle {
 
 
     public BoundingRectangle addPoint(double x, double y) {
+        minx = (minx > x) ? x : minx;
+        miny = (miny > y) ? y : miny;
+        maxx = (maxx < x) ? x : maxx;
+        maxy = (maxy < y) ? y : maxy;
         return new BoundingRectangle(
             (minx > x) ? x : minx,
             (miny > y) ? y : miny,

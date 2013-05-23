@@ -26,6 +26,10 @@ import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class TestIOUtil extends TestCase {
     static final Logger LOG = LoggerFactory.getLogger(TestIOUtil.class);
 
@@ -51,5 +55,28 @@ public class TestIOUtil extends TestCase {
         byte[] zipped = IOUtil.deflate(in.getBytes(Charsets.UTF_8));
         byte[] unzipped = IOUtil.inflate(zipped);
         assertEquals(in, new String(unzipped, Charsets.UTF_8));
+    }
+
+    public void testLoadBytes() throws IOException {
+        final int SZ = 1000000;
+        File test = testFile(SZ, (byte)1);
+        byte[] data = IOUtil.loadBytes(test);
+        assertEquals(SZ, data.length);
+        for (int i = 0; i < SZ; i++) {
+            assertEquals((byte)1, data[i]);
+        }
+    }
+
+    static File testFile(int len, byte val) throws IOException {
+        File file = File.createTempFile("ioutil", "dat");
+        byte[] data = new byte[len];
+        for (int i = 0; i < len; i++) {
+            data[i] = val;
+        }
+        FileOutputStream os = new FileOutputStream(file);
+        os.write(data);
+        os.close();
+        file.deleteOnExit();
+        return file;
     }
 }
