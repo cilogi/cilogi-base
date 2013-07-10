@@ -42,17 +42,20 @@ public class TestRunProcess extends TestCase {
 
     public void testConvert() throws IOException {
         byte[] imgData = IOUtil.loadBytes(getClass().getResource("process.png"));
+        /*
         RunProcess run = new RunProcess("C:\\Program Files\\ImageMagick-6.8.5-Q16\\convert.exe",
                 "-define", "png:format=png8",
                 "-define", "png:compression-level=9",
                 "-", "-");
+                */
+        RunProcess run = new RunProcess("cat", "-", "-");
         run.run(imgData);
         try {
             int status = run.waitFor();
             if (status == 0) {
                 byte[] data = run.output();
                 //LOG.debug("output length is " + data.length);
-                assertEquals(8985, data.length);
+                assertEquals(36162, data.length);
             } else {
                 LOG.debug("status was " + status);
             }
