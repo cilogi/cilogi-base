@@ -276,4 +276,9 @@ public class TestBase64Codec  extends TestCase {
         String out = new String(Base64Codec.decode(s), Charsets.UTF_8);
         //LOG.debug("out = " + out);
     }
+
+    public void testUnit() {
+        String s = Base64Codec.encodeBytes(new byte[]{1});
+        assertEquals("AQ==", s);
+    }
 }

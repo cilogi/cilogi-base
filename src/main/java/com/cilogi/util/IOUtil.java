@@ -64,7 +64,7 @@ public class IOUtil {
 
     public static List<String> loadLines(File file) throws IOException {
         LineNumberReader reader = new LineNumberReader(new BufferedReader(new FileReader(file)));
-        List<String> out = Lists.newLinkedList();
+        List<String> out = Lists.newArrayList();
         String line;
         while ((line = reader.readLine()) != null) {
             out.add(line.trim());
@@ -177,7 +177,7 @@ public class IOUtil {
 
     public static List<String> loadLines(String text) {
         LineNumberReader rdr = new LineNumberReader(new StringReader(text));
-        List<String> out = Lists.newLinkedList();
+        List<String> out = Lists.newArrayList();
         try {
             String line;
             while ((line = rdr.readLine()) != null) {
