@@ -75,7 +75,7 @@ public class Memcached implements IMemcached {
     @Override
     public String getString(String key) {
         byte[] data = get(key);
-        return (data == null) ? null : (String) SerializationUtils.deserialize(data);
+        return (data == null) ? null : new String(data, Charsets.UTF_8);
     }
 
     @Override
