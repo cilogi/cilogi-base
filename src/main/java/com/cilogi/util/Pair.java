@@ -21,12 +21,14 @@
 
 package com.cilogi.util;
 
+import java.io.Serializable;
+
 /**
  * Generic pair. Either or both elements can be null.  Refer to the fields directly.
  * @param <S>  first element
  * @param <T>  second element
  */
-public class Pair<S,T> {
+public class Pair<S,T> implements Serializable {
 
     public final S first;
     public final T second;
