@@ -55,11 +55,17 @@ public class IOUtil {
     public static byte[] loadBytes(File file) throws IOException {
         //return loadBytes(file.toURI().toURL());
         try (final FileChannel channel = new FileInputStream(file).getChannel()) {
-            final long size = channel.size();
-            MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
-            byte[] out = new byte[(int)size];
-            buffer.get(out);
-            return out;
+            final int size = (int)channel.size();
+            ByteBuffer buffer = ByteBuffer.allocate(size);
+            int nRead = channel.read(buffer);
+            assert nRead == size : "Oops, error getting data from file: " + file.getName();
+            if (buffer.hasArray()) {
+                return buffer.array();
+            } else {
+                byte[] out = new byte[size];
+                buffer.get(out);
+                return out;
+            }
         }
     }
 
