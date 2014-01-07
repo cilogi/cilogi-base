@@ -23,6 +23,7 @@ package com.cilogi.util;
 
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Preconditions;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -140,6 +141,7 @@ public class Digest {
 
 
     private byte[] doDigest(byte[] bytes) {
+        Preconditions.checkNotNull(bytes, "You can't digest a null byte array");
         try {
             MessageDigest md = MessageDigest.getInstance(algorithm.toString());
             md.update(bytes);
