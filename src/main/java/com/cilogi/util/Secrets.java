@@ -31,22 +31,21 @@ import java.util.Properties;
 public class Secrets {
     static final Logger LOG = LoggerFactory.getLogger(Secrets.class);
 
-    public static final Secrets VALUES = new Secrets();
+    private static final Properties props = new Properties();
 
-    private final Properties properties;
-
-    private Secrets() {
-        this.properties = new Properties();
+    static {
         try {
-            InputStream is = getClass().getResourceAsStream("/secret.properties");
-            this.properties.load(is);
-            is.close();
+            try (InputStream is = Secrets.class.getResourceAsStream("/secret.properties")) {
+                props.load(is);
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOG.error("Can't load secrets", e);
         }
     }
-    
-    public String get(String key) {
-        return (String)properties.get(key);
+
+    private Secrets() {}
+
+    public static String get(String name) {
+        return props.getProperty(name);
     }
 }
