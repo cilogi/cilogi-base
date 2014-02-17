@@ -132,6 +132,8 @@ public class MimeTypes {
     public static final String MIME_MODEL_MESH = "model/mesh";
     public static final String MIME_MODEL_VRLM = "model/vrml";
     public static final String MIME_TEXT_PLAIN = "text/plain";
+    public static final String MIME_TEXT_MARKDOWN = "text/x-markdown";
+    public static final String MIME_TEXT_CSV = "text/csv";
     public static final String MIME_TEXT_RICHTEXT = "text/richtext";
     public static final String MIME_TEXT_RTF = "text/rtf";
     public static final String MIME_TEXT_HTML = "text/html";
@@ -187,6 +189,7 @@ public class MimeTypes {
                 put1("sgm", MIME_TEXT_SGML);
                 put1("sgml", MIME_TEXT_SGML);
                 put1("css", MIME_TEXT_CSS);
+                put1("csv", MIME_TEXT_CSV);
                 put1("ifb", MIME_TEXT_CALENDAR);
                 put1("ics", MIME_TEXT_CALENDAR);
                 put1("wrl", MIME_MODEL_VRLM);
@@ -299,7 +302,6 @@ public class MimeTypes {
                 put1("cc", MIME_TEXT_PLAIN);
                 put1("chh", MIME_TEXT_PLAIN);
                 put1("java", MIME_TEXT_PLAIN);
-                put1("csv", MIME_TEXT_PLAIN);
                 put1("bat", MIME_TEXT_PLAIN);
                 put1("cmd", MIME_TEXT_PLAIN);
                 put1("asc", MIME_TEXT_PLAIN);
@@ -341,9 +343,9 @@ public class MimeTypes {
                 put1("class", MIME_APPLICATION_OCTET_STREAM);
                 put1("jar", MIME_APPLICATION_JAVA_ARCHIVE);
                 
-                put1("md", MIME_TEXT_PLAIN);
-                put1("mkd", MIME_TEXT_PLAIN);
-                put1("markdown", MIME_TEXT_PLAIN);
+                put1("md", MIME_TEXT_MARKDOWN);
+                put1("mkd", MIME_TEXT_MARKDOWN);
+                put1("markdown", MIME_TEXT_MARKDOWN);
                 put1("manifest", MIME_CACHE_MANIFEST);
                 put1("woff", MIME_APPLICATION_X_FONT_WOFF);
 
