@@ -86,10 +86,10 @@ public interface IResourceStore {
     /**
      * Create a new resource compatible with this store
      * @param path  The path for the resource
-     * @param data  The data in the resource
+     * @param dataSource  The data in the resource
      * @return The new resource
      */
-    public IResource newResource(String path, byte[] data);
+    public IResource newResource(String path, IDataSource dataSource);
 
     /**
      * Sort the resources in this store by path.

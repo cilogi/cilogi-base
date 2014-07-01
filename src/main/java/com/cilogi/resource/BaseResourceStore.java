@@ -115,7 +115,7 @@ public abstract class BaseResourceStore implements IResourceStore {
     }
 
     @Override
-    public abstract IResource newResource(String path, byte[] data);
+    public abstract IResource newResource(String path, IDataSource dataSource);
 
     @Override
     public void sort() {

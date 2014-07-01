@@ -34,9 +34,9 @@ public class MemoryResourceStore extends BaseResourceStore {
     }
 
     @Override
-    public IResource newResource(String path, byte[] data) {
+    public IResource newResource(String path, IDataSource dataSource) {
         return new Resource(path)
-                .dataSource(new ByteArrayDataSource(data))
+                .dataSource(dataSource)
                 .created(new Date());
     }
 
