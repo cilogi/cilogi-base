@@ -38,7 +38,7 @@ public class Resource implements IResource, Comparable<Resource> {
 
     private final String path;
 
-    private byte[] data;
+    private IDataSource dataSource;
     private Date created;
     private Date modified;
     private String mimeType;
@@ -49,7 +49,7 @@ public class Resource implements IResource, Comparable<Resource> {
         Preconditions.checkNotNull(path);
 
         this.path = path;
-        this.data = new byte[0];
+        this.dataSource = new ByteArrayDataSource();
         created = new Date();
         modified = new Date();
         mimeType = null;
@@ -57,11 +57,6 @@ public class Resource implements IResource, Comparable<Resource> {
         metaData = LinkedHashMultimap.create();
     }
 
-    @Override
-    public synchronized Resource data(byte[] data) {
-        Preconditions.checkNotNull(data);
-        this.data = data; return this;
-    }
 
     @Override
     public Resource created(Date created) {
@@ -81,11 +76,18 @@ public class Resource implements IResource, Comparable<Resource> {
     }
 
     @Override
+    public Resource dataSource(IDataSource dataSource) {
+        Preconditions.checkNotNull(dataSource);
+        this.dataSource = dataSource;
+        return this;
+    }
+
+    @Override
     public Resource withPath(String newPath) {
         Preconditions.checkNotNull(newPath);
         Resource out = new Resource(newPath);
         return out
-                .data(data.clone())
+                .dataSource(dataSource.copy())
                 .created(new Date(created.getTime()))
                 .modified(new Date(modified.getTime()))
                 .mimeType(mimeType);
@@ -105,7 +107,12 @@ public class Resource implements IResource, Comparable<Resource> {
 
     @Override
     public synchronized byte[] getData() {
-        return data;
+        return dataSource.getData();
+    }
+
+    @Override
+    public synchronized IDataSource getDataSource() {
+        return dataSource;
     }
 
     @Override

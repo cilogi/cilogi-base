@@ -1,10 +1,10 @@
-// Copyright (c) 2012 Tim Niblett. All Rights Reserved.
+// Copyright (c) 2014 Cilogi. All Rights Reserved.
 //
-// File:        MemoryResourceStore.java  (31/05/12)
+// File:        IDataSource.java  (01/07/14)
 // Author:      tim
 //
 // Copyright in the whole and every part of this source file belongs to
-// Tim Niblett (the Author) and may not be used, sold, licenced, 
+// Cilogi (the Author) and may not be used, sold, licenced, 
 // transferred, copied or reproduced in whole or in part in 
 // any manner or form or in or on any media to any person other than 
 // in accordance with the terms of The Author's agreement
@@ -20,24 +20,8 @@
 
 package com.cilogi.resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Date;
-
-
-public class MemoryResourceStore extends BaseResourceStore {
-    static final Logger LOG = LoggerFactory.getLogger(MemoryResourceStore.class);
-
-    public MemoryResourceStore() {
-        super();
-    }
-
-    @Override
-    public IResource newResource(String path, byte[] data) {
-        return new Resource(path)
-                .dataSource(new ByteArrayDataSource(data))
-                .created(new Date());
-    }
-
+public interface IDataSource {
+    public byte[] getData();
+    public void setData(byte[] data);
+    IDataSource copy();
 }

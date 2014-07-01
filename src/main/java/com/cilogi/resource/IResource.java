@@ -34,13 +34,13 @@ public interface IResource {
     public Date getModified();
     public String getEtag();
     public Multimap<String,Object> getMetaData();
+    public IDataSource getDataSource();
 
-    public IResource data(byte[] data);
     public IResource mimeType(String s);
     public IResource modified(Date d);
     public IResource created(Date d);
     public IResource etag(String s);
-    
+    public IResource dataSource(IDataSource dataSource);
     /**
      * Change the path of a resource
      * @param path  The new path
