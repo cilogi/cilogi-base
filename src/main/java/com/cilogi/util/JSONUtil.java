@@ -89,7 +89,7 @@ public class JSONUtil {
     /**
      * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).
      * @param s
-     * @return
+     * @return escaped string
      */
     public static String escape(String s){
         if(s==null)
