@@ -46,6 +46,10 @@ public class Resource implements IResource, Comparable<Resource> {
     private Multimap<String,Object> metaData;
 
     public Resource(String path) {
+        this(path, new ByteArrayDataSource());
+    }
+
+    protected Resource(String path, IDataSource dataSource) {
         Preconditions.checkNotNull(path);
 
         this.path = path;
@@ -79,6 +83,13 @@ public class Resource implements IResource, Comparable<Resource> {
     public Resource dataSource(IDataSource dataSource) {
         Preconditions.checkNotNull(dataSource);
         this.dataSource = dataSource;
+        return this;
+    }
+
+    @Override
+    public Resource data(byte[] data) {
+        Preconditions.checkNotNull(data);
+        dataSource.setData(data);
         return this;
     }
 

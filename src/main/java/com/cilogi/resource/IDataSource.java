@@ -23,5 +23,5 @@ package com.cilogi.resource;
 public interface IDataSource {
     public byte[] getData();
     public void setData(byte[] data);
-    IDataSource copy();
+    public IDataSource copy();
 }

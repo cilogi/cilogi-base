@@ -41,6 +41,8 @@ public interface IResource {
     public IResource created(Date d);
     public IResource etag(String s);
     public IResource dataSource(IDataSource dataSource);
+    public IResource data(byte[] data);
+
     /**
      * Change the path of a resource
      * @param path  The new path
