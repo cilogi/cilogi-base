@@ -49,11 +49,11 @@ public class Resource implements IResource, Comparable<Resource> {
         this(path, new ByteArrayDataSource());
     }
 
-    protected Resource(String path, IDataSource dataSource) {
+    public Resource(String path, IDataSource dataSource) {
         Preconditions.checkNotNull(path);
 
         this.path = path;
-        this.dataSource = new ByteArrayDataSource();
+        this.dataSource = dataSource;
         created = new Date();
         modified = new Date();
         mimeType = null;
@@ -118,6 +118,7 @@ public class Resource implements IResource, Comparable<Resource> {
 
     @Override
     public synchronized byte[] getData() {
+        LOG.info("GET " + getPath());
         return dataSource.getData();
     }
 
