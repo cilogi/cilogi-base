@@ -44,6 +44,8 @@ public class ResourceWrapper implements IResource {
     @Override
     public byte[] getData() { return resource.getData(); }
     @Override
+    public IResource data(byte[] data) { resource.data(data); return this; }
+    @Override
     public IDataSource getDataSource() {return resource.getDataSource();}
     @Override
     public String getMimeType() { return resource.getMimeType(); }
