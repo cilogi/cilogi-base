@@ -69,6 +69,16 @@ public class IOUtil {
         }
     }
 
+    public static byte[] loadBytesMapped(File file) throws IOException {
+        try (final FileChannel channel = new FileInputStream(file).getChannel()) {
+            final int size = (int)channel.size();
+            MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, size);
+            byte[] out = new byte[size];
+            buffer.get(out);
+            return out;
+        }
+    }
+
     public static List<String> loadLines(File file) throws IOException {
         LineNumberReader reader = new LineNumberReader(new BufferedReader(new FileReader(file)));
         List<String> out = Lists.newArrayList();
