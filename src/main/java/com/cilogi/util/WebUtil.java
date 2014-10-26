@@ -48,11 +48,14 @@ public class WebUtil {
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-type", "application/json");
 
-        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-        if (contents != null) {
-            writer.write(contents);
+        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), Charsets.UTF_8);
+        try {
+            if (contents != null) {
+                writer.write(contents);
+            }
+        } finally {
+            writer.close();  // have to close in order to read response
         }
-        writer.close();  // have to close in order to read response
 
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
             InputStream is = connection.getInputStream();

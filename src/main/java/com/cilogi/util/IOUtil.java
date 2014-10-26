@@ -21,6 +21,7 @@
 
 package com.cilogi.util;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,13 +81,14 @@ public class IOUtil {
     }
 
     public static List<String> loadLines(File file) throws IOException {
-        LineNumberReader reader = new LineNumberReader(new BufferedReader(new FileReader(file)));
-        List<String> out = Lists.newArrayList();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            out.add(line.trim());
+        try (LineNumberReader reader = new LineNumberReader(new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8)))) {
+            List<String> out = Lists.newArrayList();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                out.add(line.trim());
+            }
+            return Collections.unmodifiableList(out);
         }
-        return Collections.unmodifiableList(out);
     }
 
     

@@ -133,12 +133,14 @@ public abstract class BaseResourceStore implements IResourceStore {
 
     public void saveToDir(File dir) throws IOException {
         Preconditions.checkArgument(dir.isDirectory());
-        dir.mkdirs();
-        for (IResource resource : getAll()) {
-            String path = resource.getPath();
-            File file = new File(dir, path);
-            file.getParentFile().mkdirs();
-            IOUtil.storeBytes(resource.getData(), file);
+        if (dir.mkdirs()) {
+            for (IResource resource : getAll()) {
+                String path = resource.getPath();
+                File file = new File(dir, path);
+                if (file.getParentFile().mkdirs()) {
+                    IOUtil.storeBytes(resource.getData(), file);
+                }
+            }
         }
     }
 

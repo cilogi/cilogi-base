@@ -20,10 +20,14 @@
 
 package com.cilogi.util;
 
+import lombok.EqualsAndHashCode;
+import lombok.Synchronized;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
+@EqualsAndHashCode(callSuper=true)
 public class HistoStatistics extends Statistics {
 
     protected static final int DEFAULT_INITIAL_SIZE = 256;
@@ -49,19 +53,25 @@ public class HistoStatistics extends Statistics {
         vals = (ArrayList<Double>) s.vals.clone();
     }
 
-    public HistoStatistics(double[] vals) {
-        super(vals);
+    public HistoStatistics(double[] values) {
+        super(values);
         isSorted = false;
     }
 
-    public synchronized double add(double val) {
-        super.add(val);
+    @Synchronized
+    public double add(double val) {
+        return addNoSync(val);
+    }
+
+    protected double addNoSync(double val) {
+        super.addNoSync(val);
         vals.add(val);
         isSorted = false;
         return val;
     }
 
-    public synchronized void add(HistoStatistics s) {
+    @Synchronized
+    public void add(HistoStatistics s) {
         super.add(s);
         vals.addAll(s.vals);
         isSorted = false;
@@ -71,7 +81,8 @@ public class HistoStatistics extends Statistics {
         return quant(0.5);
     }
 
-    private synchronized boolean isSorted() {
+    @Synchronized
+    private boolean isSorted() {
         return isSorted;
     }
 
@@ -85,16 +96,19 @@ public class HistoStatistics extends Statistics {
      * @param v
      * @return number of elements whose value is less than or equal to <code>v</code>
      */
-    public synchronized int nLE(double v) {
+    @Synchronized
+    public int nLE(double v) {
         return n - nGT(v);
     }
     
-    public synchronized int nLT(double v) {
+    @Synchronized
+    public int nLT(double v) {
         return n - nGE(v);
     }
 
     @SuppressWarnings({"unchecked"})
-    public synchronized int nGE(double v) {
+    @Synchronized
+    public int nGE(double v) {
         if (n == 0) {
             return 0;
         }
@@ -128,7 +142,7 @@ public class HistoStatistics extends Statistics {
     }
 
     @SuppressWarnings({"unchecked"})
-    public synchronized int nGT(double v) {
+    public int nGT(double v) {
         if (n == 0) {
             return 0;
         }
@@ -162,7 +176,8 @@ public class HistoStatistics extends Statistics {
     }
 
     @SuppressWarnings({"unchecked"})
-    public synchronized double quant(double q) {
+    @Synchronized
+    public double quant(double q) {
         if (n == 0) {
             return 0;
         }
@@ -186,7 +201,8 @@ public class HistoStatistics extends Statistics {
         }
     }
     
-    public synchronized double[] quantCentered(double q) {
+    @Synchronized
+    public double[] quantCentered(double q) {
         double half = (1.0-q)*0.5;
         return new double[]{quant(half), quant(1-half)};                
     }
@@ -197,7 +213,8 @@ public class HistoStatistics extends Statistics {
      * @return the histogram where double[0] is the domain and double[1] is the count.
      */
     @SuppressWarnings({"unchecked"})
-    public synchronized double[][] histo(int nBuckets) {
+    @Synchronized
+    public double[][] histo(int nBuckets) {
         if(nBuckets <= 0) {
             throw new IllegalArgumentException("nBuckets must be positive but is " + nBuckets);
         }
@@ -252,10 +269,12 @@ public class HistoStatistics extends Statistics {
         }
     }
 
-    public synchronized final double get(int i) {
+    @Synchronized
+    public final double get(int i) {
         return vals.get(i);
     }
 
+    @Synchronized
     public String toString() {
         NumberFormat f = NumberFormat.getInstance();
         f.setMaximumFractionDigits(digits);

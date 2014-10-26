@@ -38,7 +38,7 @@ class Procrustes2DLL {
     }
     
     Point2d transform(Point2d from, Point2d to) {
-        Point2d fromFlip = flip(from);
+        //Point2d fromFlip = flip(from);
         procrustes.transform(from, to);
         unFlip(to);
         return to;

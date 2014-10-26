@@ -65,7 +65,7 @@ public class AffineProcrustes {
         
         int nPoints = from.length;
 
-        double[] tmp = new double[NDIM * nPoints * NPAR];
+        //double[] tmp = new double[NDIM * nPoints * NPAR];
         double[][] A = new double[NDIM * nPoints][NPAR];
         double[] x = new double[NPAR];
         double[] b = new double[NDIM * nPoints];
@@ -84,7 +84,7 @@ public class AffineProcrustes {
             b[index + 1] = q.y;
         }
 
-        GVector B = new GVector(b);
+        //GVector B = new GVector(b);
         mx = new Matrix3d();
         LeastSquaresColt.solve(A, x, b);
         //check(A, x, b);

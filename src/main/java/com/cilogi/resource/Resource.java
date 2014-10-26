@@ -52,26 +52,28 @@ public class Resource implements IResource, Comparable<Resource> {
     public Resource(String path, IDataSource dataSource) {
         Preconditions.checkNotNull(path);
 
+        this.created = new Date();
+        this.modified = new Date();
+        this.mimeType = null;
+        this.etag = null;
+        this.metaData = LinkedHashMultimap.create();
+
         this.path = path;
         this.dataSource = dataSource;
-        created = new Date();
-        modified = new Date();
-        mimeType = null;
-        etag = null;
-        metaData = LinkedHashMultimap.create();
     }
 
 
     @Override
     public Resource created(Date created) {
         Preconditions.checkNotNull(created);
-        this.created = created; return this;
+        this.created = new Date(created.getTime());
+        return this;
     }
 
     @Override
     public Resource modified(Date modified) {
         Preconditions.checkNotNull(modified);
-        this.modified = modified; return this;
+        this.modified = new Date(modified.getTime()); return this;
     }
 
     @Override
@@ -148,12 +150,12 @@ public class Resource implements IResource, Comparable<Resource> {
 
     @Override
     public Date getCreated() {
-        return created;
+        return (created == null) ? null : new Date(created.getTime());
     }
 
     @Override
     public Date getModified() {
-        return modified;
+        return (modified == null) ? null : new Date(modified.getTime());
     }
 
     @Override
@@ -189,7 +191,7 @@ public class Resource implements IResource, Comparable<Resource> {
 
     @Override
     public String toString() {
-        return getPath() + "(" + getData().length + ")";
+        return getPath();
     }
     
     @Override

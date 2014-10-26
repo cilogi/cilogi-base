@@ -20,6 +20,7 @@
 
 package com.cilogi.util;
 
+import com.google.common.base.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -388,7 +389,7 @@ public class Base64Codec {
             return new String(baos.toByteArray(), PREFERRED_ENCODING);
         }   // end try
         catch (UnsupportedEncodingException uue) {
-            return new String(baos.toByteArray());
+            return new String(baos.toByteArray(), Charsets.UTF_8);
         }   // end catch
 
     }   // end encode
@@ -510,7 +511,7 @@ public class Base64Codec {
                 return new String(baos.toByteArray(), PREFERRED_ENCODING);
             }   // end try
             catch (UnsupportedEncodingException uue) {
-                return new String(baos.toByteArray());
+                return new String(baos.toByteArray(), Charsets.UTF_8);
             }   // end catch
         }   // end if: compress
 
@@ -549,7 +550,11 @@ public class Base64Codec {
                 return new String(outBuff, 0, e, PREFERRED_ENCODING);
             }
             catch (UnsupportedEncodingException uue) {
-                return new String(outBuff, 0, e);
+                try {
+                    return new String(outBuff, 0, e, PREFERRED_ENCODING);
+                } catch (UnsupportedEncodingException uce) {
+                    return "";
+                }
             }   // end catch
 
         }
@@ -790,7 +795,7 @@ public class Base64Codec {
             bytes = s.getBytes(PREFERRED_ENCODING);
         }   // end try
         catch (UnsupportedEncodingException uee) {
-            bytes = s.getBytes();
+            bytes = s.getBytes(Charsets.UTF_8);
         }   // end catch
         //</change>
 

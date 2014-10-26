@@ -20,11 +20,15 @@
 
 package com.cilogi.util;
 
+import lombok.EqualsAndHashCode;
+import lombok.Synchronized;
+
 import java.text.NumberFormat;
 
+@EqualsAndHashCode
 public class Statistics {
 
-    protected static int defaultMaximumFractionDigits = 6;
+    static int defaultMaximumFractionDigits = 6;
     protected int n;
     protected double sum;
     protected double absSum;
@@ -57,28 +61,36 @@ public class Statistics {
     public Statistics(double[] vals) {
         this();
         for (int i = 0; i < vals.length; i++) {
-            add(vals[i]);
+            addNoSync(vals[i]);
         }
     }
 
-
-    public synchronized static void setDefaultMaximumFractionDigits(int digits) {
+    @Synchronized
+    public static void setDefaultMaximumFractionDigits(int digits) {
         defaultMaximumFractionDigits = digits;
     }
 
-    public synchronized static int getDefaultMaximumFractionalDigits() {
+    @Synchronized
+    public static int getDefaultMaximumFractionalDigits() {
         return defaultMaximumFractionDigits;
     }
 
-    public synchronized void setMaximumFractionDigits(int digits) {
+    @Synchronized
+    public void setMaximumFractionDigits(int digits) {
         this.digits = digits;
     }
 
-    public synchronized int getMaximumFractionalDigits() {
+    @Synchronized
+    public int getMaximumFractionalDigits() {
         return digits;
     }
 
-    public synchronized double add(double val) {
+    @Synchronized
+    public double add(double val) {
+        return addNoSync(val);
+    }
+
+    protected double addNoSync(double val) {
         if (n == 0) {
             min = val;
             max = val;
@@ -94,7 +106,8 @@ public class Statistics {
         return val;
     }
 
-    public synchronized void add(Statistics s) {
+    @Synchronized
+    public void add(Statistics s) {
         if(s.n == 0) {
             return;
         } else if(this.n == 0) {
@@ -115,88 +128,75 @@ public class Statistics {
         }
     }
 
-    public synchronized double getAbsMax() {
+    @Synchronized
+    public double getAbsMax() {
         double amax = Math.abs(max);
         double amin = Math.abs(min);
         return (amax > amin) ? amax : amin;
     }
 
-    public synchronized double getMax() {
+    @Synchronized
+    public double getMax() {
         return max;
     }
 
-    public synchronized double getSum() {
+    @Synchronized
+    public double getSum() {
         return sum;
     }
 
-    public synchronized double getAbsSum() {
+    @Synchronized
+    public double getAbsSum() {
         return absSum;
     }
 
-    public synchronized double getMean() {
+    @Synchronized
+    public double getMean() {
         return n != 0 ? sum / (double)n : 0.0D;
     }
 
-    public synchronized double getAbsMean() {
+    @Synchronized
+    public double getAbsMean() {
         return n != 0 ? absSum / (double)n : 0.0D;
     }
 
-    public synchronized double getMin() {
+    @Synchronized
+    public double getMin() {
         return min;
     }
 
-    public synchronized int size() {
+    @Synchronized
+    public int size() {
         return n;
     }
 
-    public synchronized double getVariance() {
+    @Synchronized
+    public double getVariance() {
         double m = getMean();
         return (n > 0) ? ((var / (double)n) - (m * m)) : 0.0D;
     }
 
-    public synchronized double getAbsVariance() {
+    @Synchronized
+    public double getAbsVariance() {
         double m = getAbsMean();
         return (n > 0) ? ((var / (double)n) - (m * m)) : 0.0D;
     }
 
-    public synchronized double getSD() {
+    @Synchronized
+    public double getSD() {
         double var = getVariance();
         return (var <= 0.0d) ? 0.0d : Math.sqrt(getVariance());
     }
 
-    public synchronized double getAbsSD() {
+    @Synchronized
+    public double getAbsSD() {
         double var = getAbsVariance();
         return (var <= 0.0d) ? 0.0d : Math.sqrt(getAbsVariance());
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(!(obj instanceof Statistics)) {
-            return false;
-        }
-        Statistics other = (Statistics)obj;
-        if(this.n != other.n) {
-            return false;
-        }
-        if(this.sum != other.sum) {
-            return false;
-        }
-        if(this.absSum != other.absSum) {
-            return false;
-        }
-        if(this.var != other.var) {
-            return false;
-        }
-        if(this.min != other.min) {
-            return false;
-        }
-        if(this.max != other.max) {
-            return false;
-        }
-        return true;
-    }
     
-    public synchronized String toString() {
+    @Synchronized
+    public String toString() {
         NumberFormat f = NumberFormat.getInstance();
         f.setMaximumFractionDigits(digits);
 
@@ -209,4 +209,5 @@ public class Statistics {
                 + " max: " + f.format(max)
                 + " num values: " + size() + ")";
     }
+
 }

@@ -35,17 +35,17 @@ public class ByteArrayDataSource implements IDataSource {
 
     public ByteArrayDataSource(byte[] data) {
         Preconditions.checkNotNull(data, "Data cannot be null");
-        this.data = data;
+        this.data = data.clone();
     }
 
     @Override
     public byte[] getData() {
-        return data;
+        return (data == null) ? null : data.clone();
     };
 
     @Override
     public void setData(byte[] data) {
-        this.data = data;
+        this.data = (data == null) ? null : data.clone();
     }
 
     @Override
