@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 
-public class MemoryResourceStore extends BaseResourceStore {
+public class MemoryResourceStore extends BaseResourceStore<Resource> {
     static final Logger LOG = LoggerFactory.getLogger(MemoryResourceStore.class);
 
     public MemoryResourceStore() {
@@ -34,7 +34,7 @@ public class MemoryResourceStore extends BaseResourceStore {
     }
 
     @Override
-    public IResource newResource(String path, IDataSource dataSource) {
+    public Resource newResource(String path, IDataSource dataSource) {
         return new Resource(path)
                 .dataSource(dataSource)
                 .created(new Date());

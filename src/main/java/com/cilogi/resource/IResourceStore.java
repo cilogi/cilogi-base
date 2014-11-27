@@ -25,7 +25,7 @@ package com.cilogi.resource;
 import java.util.List;
 import java.util.Set;
 
-public interface IResourceStore {
+public interface IResourceStore<T extends IResource> {
 
     public void addExternalResource(String name);
 
@@ -53,16 +53,16 @@ public interface IResourceStore {
      * @param resource  the resource to store.  Must be non-null.
      * @throws ResourceStoreException if the store fails
      */
-    public void put(IResource resource);
+    public void put(T resource);
 
     /**
      * Get a resource from a store
      * @param resourceName  The name of the resource.   Must be non-null.
-     * @return  The reosurce, or null if no such resource exists
+     * @return  The resource, or null if no such resource exists
      * @throws ResourceStoreException if the get fails other than by resource non-existence, in
      * which case the resource may or may not exist.
      */
-    public IResource get(String resourceName);
+    public T get(String resourceName);
 
     /**
      * Delete a resource.  If no error is thrown a resource with that name will not exist any more.
@@ -89,7 +89,7 @@ public interface IResourceStore {
      * @param dataSource  The data in the resource
      * @return The new resource
      */
-    public IResource newResource(String path, IDataSource dataSource);
+    public T newResource(String path, IDataSource dataSource);
 
     /**
      * Sort the resources in this store by path.

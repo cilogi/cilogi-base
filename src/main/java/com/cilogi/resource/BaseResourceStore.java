@@ -32,15 +32,15 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class BaseResourceStore implements IResourceStore {
+public abstract class BaseResourceStore<T extends IResource> implements IResourceStore <T> {
 
     private static final int MAX_NUMBER_OF_RESOURCES = 25000;
 
-    protected final List<IResource> resources;
+    protected final List<T> resources;
     private final Set<String> externalResourceNames;
 
     public BaseResourceStore() {
-        resources = Collections.synchronizedList(Lists.<IResource>newLinkedList());
+        resources = Collections.synchronizedList(Lists.<T>newLinkedList());
         externalResourceNames = Collections.synchronizedSet(Sets.<String>newLinkedHashSet());
     }
 
@@ -74,14 +74,14 @@ public abstract class BaseResourceStore implements IResourceStore {
     }
 
     @Override
-    public synchronized void put(IResource resource) {
+    public synchronized void put(T resource) {
         delete(resource.getPath());
         resources.add(resource);
     }
 
     @Override
-    public synchronized IResource get(String resourceName) {
-        for (IResource resource : resources) {
+    public synchronized T get(String resourceName) {
+        for (T resource : resources) {
             if (resource.getPath().equals(resourceName)) {
                 return resource;
             }
@@ -115,7 +115,7 @@ public abstract class BaseResourceStore implements IResourceStore {
     }
 
     @Override
-    public abstract IResource newResource(String path, IDataSource dataSource);
+    public abstract T newResource(String path, IDataSource dataSource);
 
     @Override
     public void sort() {
@@ -127,7 +127,7 @@ public abstract class BaseResourceStore implements IResourceStore {
 
     }
     
-    protected List<IResource> getAll() {
+    protected List<T> getAll() {
         return Collections.unmodifiableList(resources);
     }
 
