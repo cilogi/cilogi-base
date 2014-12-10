@@ -120,7 +120,6 @@ public class Resource implements IResource, Comparable<Resource> {
 
     @Override
     public synchronized byte[] getData() {
-        LOG.info("GET " + getPath());
         return dataSource.getData();
     }
 
