@@ -44,6 +44,7 @@ public class Resource implements IResource, Comparable<Resource> {
     private String mimeType;
     private String etag;
     private Multimap<String,Object> metaData;
+    private transient String digest;
 
     public Resource(String path) {
         this(path, new ByteArrayDataSource());
@@ -60,6 +61,8 @@ public class Resource implements IResource, Comparable<Resource> {
 
         this.path = path;
         this.dataSource = dataSource;
+
+        this.digest = null;
     }
 
 
@@ -184,8 +187,11 @@ public class Resource implements IResource, Comparable<Resource> {
         }
     }
 
-    public String getDigest() {
-        return Digest.digestHex(getData(), Digest.Algorithm.MD5);
+    public synchronized String getDigest() {
+        if (digest == null) {
+            digest = Digest.digestHex(getData(), Digest.Algorithm.MD5);
+        }
+        return digest;
     }
 
     @Override
