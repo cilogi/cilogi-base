@@ -32,7 +32,7 @@ import javax.vecmath.Vector2d;
 import java.util.List;
 
 /**
- * This class computes an scale & translate transform between two sets of points.
+ * This class computes an scale and translate transform between two sets of points.
  * App Engine doesn't support rotation, just translation and scaling.
  */
 public class ScaleTranslateProcrustes {

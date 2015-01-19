@@ -51,7 +51,7 @@ public class LeastSquaresColt {
         this.conditionNumberLimit = conditionNumberLimit;
     }
 
-    /**
+    /*
      * Solve for x in a x = b
      */
     public static void solve(double[][] a, double[] x, double[] b) {

@@ -205,7 +205,7 @@ public class BoundingRectangle {
         }
     }
 
-    /** Distance to the box from a point */
+    /* Distance to the box from a point */
     public double distance(Point2d p) {
         double xdist = 0;
         double ydist = 0;
