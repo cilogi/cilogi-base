@@ -64,5 +64,23 @@ public class FileUtil {
             }
 
         });
-    }    
+    }
+
+    public static void copyDirectory(File src, File dst) throws IOException {
+        final Path srcPath = src.toPath();
+        final Path dstPath = dst.toPath();
+        Files.walkFileTree(srcPath, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(final Path dir, final BasicFileAttributes attrs) throws IOException {
+                Files.createDirectories(dstPath.resolve(srcPath.relativize(dir)));
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException {
+                Files.copy(file, dstPath.resolve(srcPath.relativize(file)));
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
 }
