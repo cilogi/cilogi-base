@@ -25,6 +25,7 @@ package com.cilogi.resource;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Multimap;
 
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -85,5 +86,11 @@ public class ResourceWrapper implements IResource {
     @Override
     public boolean equals(Object o) {
         return (o instanceof IResource) && resource.equals(o);
+    }
+
+    // Som useful extra stuff
+    public Object getFirstMetaData(String key) {
+        Collection<Object> all =  getMetaData().get(key);
+        return (all.size() == 0) ? null : all.iterator().next();
     }
 }
