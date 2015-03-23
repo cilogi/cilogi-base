@@ -26,6 +26,6 @@ public interface IMemcached {
     public void put(String key, byte[] data);
 
     public byte[] get(String key);
-    public String getString(String key);
 
+    public void close();
 }
