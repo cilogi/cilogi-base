@@ -93,7 +93,7 @@ public class HistoStatistics extends Statistics {
     }
 
     /** Get the number of elements whose value is less than or equal to <code>v</code>.
-     * @param v
+     * @param v the value to be less than or equal to
      * @return number of elements whose value is less than or equal to <code>v</code>
      */
     @Synchronized

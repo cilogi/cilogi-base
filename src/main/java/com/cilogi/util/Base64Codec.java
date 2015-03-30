@@ -1412,7 +1412,8 @@ public class Base64Codec {
 
         /**
          * Method added by PHIL. [Thanks, PHIL. -Rob]
-         * This pads the buffer without closing the stream.
+         * This pads the buffer without closing the stream
+         * @throws IOException if can't flush to stream.
          */
         public void flushBase64() throws IOException {
             if (position > 0) {
@@ -1450,7 +1451,7 @@ public class Base64Codec {
          * Suspends encoding of the stream.
          * May be helpful if you need to embed a piece of
          * base640-encoded data in a stream.
-         *
+         * @throws IOException if we can't flush
          * @since 1.5.1
          */
         public void suspendEncoding() throws IOException {

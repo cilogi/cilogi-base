@@ -30,7 +30,7 @@ import java.io.*;
 /**
  * This class can only be used when you're running a Memcached server locally.  The idea
  * is to have a smallish in-memory cache, backed up by Memcached, which can be as big as you like.
- * @param <T>
+ * @param <T> the type being cached
  */
 public class MemcacheClassLoader<T> extends CacheLoader<String,T> {
     static final Logger LOG = LoggerFactory.getLogger(MemcacheClassLoader.class);

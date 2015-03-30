@@ -21,6 +21,7 @@
 package com.cilogi.util;
 
 import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteStreams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 
 public class WebUtil {
@@ -37,24 +39,31 @@ public class WebUtil {
 
     private WebUtil() {}
 
+    @SuppressWarnings({"unused"})
     public static String postURL(URL url) throws IOException {
         return postURL(url, null);
     }
 
     public static String postURL(URL url, String contents) throws IOException {
+        return postURL(url, contents, ImmutableMap.of("Content-type", "application/json"));
+    }
+
+
+    public static String postURL(URL url, String contents, Map<String,String> headers) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-type", "application/json");
+        if (headers != null) {
+            for (String key: headers.keySet()) {
+                connection.setRequestProperty(key, headers.get(key));
+            }
+        }
 
-        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), Charsets.UTF_8);
-        try {
+        try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), Charsets.UTF_8)) {
             if (contents != null) {
                 writer.write(contents);
             }
-        } finally {
-            writer.close();  // have to close in order to read response
         }
 
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
