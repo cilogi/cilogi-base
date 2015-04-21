@@ -161,6 +161,10 @@ public class MimeTypes {
         MIME_IMAGE_JPEG, MIME_IMAGE_PNG, MIME_IMAGE_TIFF, MIME_IMAGE_WEBP
     );
 
+    private static final Set<String> AUDIO_MIMES = Sets.newHashSet(
+            MIME_AUDIO_MPEG
+    );
+
     private static HashMap<String, String> mimeTypeMapping;
 
     static {
@@ -378,17 +382,17 @@ public class MimeTypes {
         return IMAGE_MIMES.contains(mimeType);
     }
 
+    public static boolean isAudioMimeType(String mimeType) {
+        return AUDIO_MIMES.contains(mimeType);
+    }
+
     /*
     * Returns the corresponding MIME type to the given extension.
     * If no MIME type was found it returns 'application/octet-stream' type.
     */
 
     public static String getMimeType(String ext) {
-        String mimeType = lookupMimeType(ext);
-        if (mimeType == null) {
-            mimeType = MIME_APPLICATION_OCTET_STREAM;
-        }
-        return mimeType;
+        return getMimeType(ext, MIME_APPLICATION_OCTET_STREAM);
     }
 
     public static String getMimeType(String ext, String deflt) {
