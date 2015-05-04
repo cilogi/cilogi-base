@@ -30,13 +30,13 @@ public interface IResource {
     public String getPath();
     public byte[] getData();
     public String getMimeType();
-    public Date getCreated();
+    public Date getModified();
     public String getEtag();
     public Multimap<String,Object> getMetaData();
     public IDataSource getDataSource();
 
     public IResource mimeType(String s);
-    public IResource created(Date d);
+    public IResource modified(Date d);
     public IResource etag(String s);
     public IResource dataSource(IDataSource dataSource);
     public IResource data(byte[] data);

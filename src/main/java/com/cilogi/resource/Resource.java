@@ -40,7 +40,7 @@ public class Resource implements IResource, Comparable<Resource> {
     private final String path;
 
     private IDataSource dataSource;
-    private Date created;
+    private Date modified;
     private String mimeType;
     private String etag;
     private Multimap<String,Object> metaData;
@@ -52,7 +52,7 @@ public class Resource implements IResource, Comparable<Resource> {
     public Resource(String path, IDataSource dataSource) {
         Preconditions.checkNotNull(path);
 
-        this.created = new Date();
+        this.modified = new Date();
         this.mimeType = null;
         this.etag = null;
         this.metaData = LinkedHashMultimap.create();
@@ -63,9 +63,9 @@ public class Resource implements IResource, Comparable<Resource> {
 
 
     @Override
-    public Resource created(Date created) {
-        Preconditions.checkNotNull(created);
-        this.created = new Date(created.getTime());
+    public Resource modified(Date modified) {
+        Preconditions.checkNotNull(modified);
+        this.modified = new Date(modified.getTime());
         return this;
     }
 
@@ -94,7 +94,7 @@ public class Resource implements IResource, Comparable<Resource> {
         Resource out = new Resource(newPath);
         return out
                 .dataSource(dataSource.copy())
-                .created(new Date(created.getTime()))
+                .modified(new Date(modified.getTime()))
                 .mimeType(mimeType);
     }
 
@@ -140,8 +140,8 @@ public class Resource implements IResource, Comparable<Resource> {
     }
 
     @Override
-    public Date getCreated() {
-        return (created == null) ? null : new Date(created.getTime());
+    public Date getModified() {
+        return (modified == null) ? null : new Date(modified.getTime());
     }
 
     @Override

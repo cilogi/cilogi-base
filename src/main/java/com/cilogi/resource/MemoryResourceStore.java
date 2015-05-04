@@ -37,7 +37,7 @@ public class MemoryResourceStore extends BaseResourceStore<Resource> {
     public Resource newResource(String path, IDataSource dataSource) {
         return new Resource(path)
                 .dataSource(dataSource)
-                .created(new Date());
+                .modified(new Date());
     }
 
 }

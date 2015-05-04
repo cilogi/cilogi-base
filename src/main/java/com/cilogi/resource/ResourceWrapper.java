@@ -51,7 +51,7 @@ public class ResourceWrapper implements IResource {
     @Override
     public String getMimeType() { return resource.getMimeType(); }
     @Override
-    public Date getCreated() { return resource.getCreated(); }
+    public Date getModified() { return resource.getModified(); }
     @Override
     public String getEtag() { return resource.getEtag(); }
     @Override
@@ -62,7 +62,7 @@ public class ResourceWrapper implements IResource {
     @Override
     public IResource mimeType(String s) { resource.mimeType(s); return this; }
     @Override
-    public IResource created(Date d) { resource.created(d); return this; }
+    public IResource modified(Date d) { resource.modified(d); return this; }
     @Override
     public IResource etag(String s) { resource.etag(s); return this; }
     @Override

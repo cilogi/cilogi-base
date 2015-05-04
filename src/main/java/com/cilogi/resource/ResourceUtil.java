@@ -50,11 +50,11 @@ public class ResourceUtil {
     }
 
     public static void setCreatedFromMetaData(IResource resource) {
-        Collection<Object> created = resource.getMetaData().get("created");
+        Collection<Object> created = resource.getMetaData().get("modified");
         if (created.size() > 0) {
             try {
                 Date date = DateUtil.parseIso8601Date((String) created.iterator().next());
-                resource.created(date);
+                resource.modified(date);
             } catch (ParseException e) {
                 LOG.error("Can't parse " + created + " as ISO 8601 date of format yyyy-MM-dd'T'HH:mm:ss'Z'");
             }
