@@ -34,13 +34,13 @@ import java.util.Date;
 // Not sure if I should make this class immutable or not.
 // At the moment its not.
 public class Resource implements IResource, Comparable<Resource> {
+    @SuppressWarnings({"unused"})
     static final Logger LOG = LoggerFactory.getLogger(Resource.class);
 
     private final String path;
 
     private IDataSource dataSource;
     private Date created;
-    private Date modified;
     private String mimeType;
     private String etag;
     private Multimap<String,Object> metaData;
@@ -53,7 +53,6 @@ public class Resource implements IResource, Comparable<Resource> {
         Preconditions.checkNotNull(path);
 
         this.created = new Date();
-        this.modified = new Date();
         this.mimeType = null;
         this.etag = null;
         this.metaData = LinkedHashMultimap.create();
@@ -68,12 +67,6 @@ public class Resource implements IResource, Comparable<Resource> {
         Preconditions.checkNotNull(created);
         this.created = new Date(created.getTime());
         return this;
-    }
-
-    @Override
-    public Resource modified(Date modified) {
-        Preconditions.checkNotNull(modified);
-        this.modified = new Date(modified.getTime()); return this;
     }
 
     @Override
@@ -102,7 +95,6 @@ public class Resource implements IResource, Comparable<Resource> {
         return out
                 .dataSource(dataSource.copy())
                 .created(new Date(created.getTime()))
-                .modified(new Date(modified.getTime()))
                 .mimeType(mimeType);
     }
 
@@ -153,14 +145,8 @@ public class Resource implements IResource, Comparable<Resource> {
     }
 
     @Override
-    public Date getModified() {
-        return (modified == null) ? null : new Date(modified.getTime());
-    }
-
-    @Override
     public Multimap<String,Object> getMetaData() {
-        Multimap<String,Object> map = LinkedHashMultimap.create(metaData);
-        return map;
+        return LinkedHashMultimap.create(metaData);
     }
 
     @Override
@@ -184,6 +170,7 @@ public class Resource implements IResource, Comparable<Resource> {
         }
     }
 
+    @SuppressWarnings({"unused"})
     public synchronized String getDigest() {
         return Digest.digestHex(getData(), Digest.Algorithm.MD5);
     }

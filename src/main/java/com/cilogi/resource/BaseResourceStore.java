@@ -89,11 +89,6 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
         return null;
     }
 
-    public Date lastModified(String path) {
-        IResource resource = get(path);
-        return (resource == null) ? null : resource.getModified();
-    }
-
     @Override
     public synchronized void delete(String resourceName) {
         for (IResource resource : resources) {
