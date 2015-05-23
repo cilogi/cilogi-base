@@ -55,7 +55,7 @@ public class LimitedExecutor extends ThreadPoolExecutor {
         try {
             awaitTermination(timeout, unit);    
         } catch (InterruptedException e) {
-            // ok
+            LOG.warn("Limited executor interrupted unexpectedly: " + e.getMessage());
         }
     }
 
