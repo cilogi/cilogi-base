@@ -113,10 +113,6 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
     public abstract T newResource(String path, IDataSource dataSource);
 
     @Override
-    public void postFilter() {
-        sort();
-    }
-
     public void sort() {
         Collections.sort(resources, new Comparator<IResource>() {
             public int compare(IResource a, IResource b) {
@@ -124,6 +120,14 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
             }
         });
 
+    }
+
+    public IResource importResource(String path, IResource resource) {
+        return new Resource(path)
+                .dataSource(resource.getDataSource())
+                .metaData(resource.getMetaData())
+                .mimeType(resource.getMimeType())
+                .modified(resource.getModified());
     }
     
     protected List<T> getAll() {

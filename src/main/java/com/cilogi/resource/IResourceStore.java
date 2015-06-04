@@ -22,6 +22,7 @@
 package com.cilogi.resource;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -84,6 +85,16 @@ public interface IResourceStore<T extends IResource> {
     public void store();
 
     /**
+     * Take a resource and do any necessary processing of it so it can be added.
+     * Note that the resource is <em>not</em> added.
+     * @param path Path which the imported resource will have
+     * @param resource The resource to import
+     * @return A new resource with the correct path and with any filters applied
+     * @throws IOException If any filters blow up
+     */
+    public IResource importResource(String path, IResource resource) throws IOException;
+
+    /**
      * Create a new resource compatible with this store
      * @param path  The path for the resource
      * @param dataSource  The data in the resource
@@ -92,10 +103,8 @@ public interface IResourceStore<T extends IResource> {
     public T newResource(String path, IDataSource dataSource);
 
     /**
-     * Do any post-filtering, which will include sorting
+     * Needed to produce a consistent ordering of the resources
      */
-    public void postFilter();
-
     public void sort();
 
     public static class ResourceStoreException extends RuntimeException {
