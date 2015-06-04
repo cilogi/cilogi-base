@@ -122,7 +122,8 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
 
     }
 
-    public IResource importResource(String path, IResource resource) {
+    @Override
+    public IResource importResource(String path, IResource resource) throws IOException {
         return new Resource(path)
                 .dataSource(resource.getDataSource())
                 .metaData(resource.getMetaData())
