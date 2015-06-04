@@ -92,11 +92,10 @@ public interface IResourceStore<T extends IResource> {
     public T newResource(String path, IDataSource dataSource);
 
     /**
-     * Sort the resources in this store by path.
-     * The point is to provide a consistent ordering so that
-     * changes from run to run are minimised.  We do a lot of parallel
-     * execution which means the ordering will be variable otherwise.
+     * Do any post-filtering, which will include sorting
      */
+    public void postFilter();
+
     public void sort();
 
     public static class ResourceStoreException extends RuntimeException {
