@@ -32,7 +32,7 @@ public class PathUtil {
 
 
     private static Glob glob = new Glob(Lists.newArrayList(
-            "index.json", "contents/*", "listings/*"
+            "index.json", "contents/*"
     ), true);
 
     private PathUtil() {}
