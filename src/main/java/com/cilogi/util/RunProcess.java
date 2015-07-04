@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -74,11 +75,17 @@ public class RunProcess {
     public void run() throws IOException {
         run(new byte[0]);
     }
+
     public void run(byte[] input) throws IOException {
         process = builder.start();
-        monitor = new ProcessUnblocker(process, input);
+        monitor = new ProcessUnblocker(commandString(), process, input);
         Thread monitorThread = new Thread(monitor);
         monitorThread.start();
+    }
+
+    private String commandString() {
+        List<String> commands = builder.command();
+        return Arrays.toString(commands.toArray());
     }
 
     /**
@@ -113,16 +120,17 @@ public class RunProcess {
     }
 
     static class ProcessUnblocker implements Runnable {
+        private String commandString;
         Process process;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ByteArrayOutputStream err = new ByteArrayOutputStream();
         private boolean cleaned = false;
         private byte[] stdin;
 
-        ProcessUnblocker(Process process, byte[] stdin) {
+        ProcessUnblocker(String commandString, Process process, byte[] stdin) {
             Preconditions.checkNotNull(process, "Process can't be null");
             Preconditions.checkNotNull(stdin, "Data can't be null");
-
+            this.commandString = commandString;
             this.process = process;
             this.stdin = stdin;
         }
@@ -149,21 +157,21 @@ public class RunProcess {
                             written = true;
                         }
                     } catch (IOException e) {
-                        LOG.warn("IOException running process (input): " + e.getMessage());
+                        LOG.warn(commandString + ": IOException running process (input): " + e.getMessage());
                         return;
                     }
                     try {
                         boolean thisFail = !handle(process.getInputStream(), out);
                         lastFail = lastFail || thisFail;
                     } catch (IOException e) {
-                        LOG.warn("IOException running process (output): " + e.getMessage());
+                        LOG.warn(commandString + ": IOException running process (output): " + e.getMessage());
                         return;
                     }
                     try {
                         boolean thisFail = !handle(process.getErrorStream(), err);
                         lastFail = lastFail || thisFail;
                     } catch (IOException e) {
-                        LOG.warn("IOException running process (error): " + e.getMessage());
+                        LOG.warn(commandString + ": IOException running process (error): " + e.getMessage());
                         return;
                     }
                     try {
