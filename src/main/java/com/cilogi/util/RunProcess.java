@@ -157,7 +157,9 @@ public class RunProcess {
                             written = true;
                         }
                     } catch (IOException e) {
-                        LOG.warn(commandString + ": IOException running process (input): " + e.getMessage());
+                        if (e.getMessage() != null && !e.getMessage().startsWith("The pipe has been ended")) {
+                            LOG.warn(commandString + ": IOException running process (input): " + e.getMessage());
+                        }
                         return;
                     }
                     try {
