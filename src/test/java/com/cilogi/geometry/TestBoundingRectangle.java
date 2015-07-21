@@ -22,7 +22,6 @@ package com.cilogi.geometry;
 
 import junit.framework.TestCase;
 import org.slf4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.LoggerFactory;
 
 public class TestBoundingRectangle extends TestCase {

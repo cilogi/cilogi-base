@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.PropertyConfigurator;
 import org.joda.time.DateTime;
 
 import java.text.ParseException;

@@ -25,8 +25,6 @@ import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.PropertyConfigurator;
-
 
 public class TestBase64Codec  extends TestCase {
     static final Logger LOG = LoggerFactory.getLogger(TestBase64Codec.class);

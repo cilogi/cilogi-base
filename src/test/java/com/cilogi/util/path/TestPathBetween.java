@@ -22,10 +22,11 @@
 package com.cilogi.util.path;
 
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestPathBetween extends TestCase {
-    static final Logger LOG = Logger.getLogger(TestPathBetween.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestPathBetween.class);
 
 
     public TestPathBetween(String nm) {
