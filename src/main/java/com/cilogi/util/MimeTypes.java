@@ -162,7 +162,11 @@ public class MimeTypes {
     );
 
     private static final Set<String> AUDIO_MIMES = Sets.newHashSet(
-            MIME_AUDIO_MPEG
+            MIME_AUDIO_MPEG, MIME_APPLICATION_X_OGG
+    );
+
+    private static final Set<String> COMPRESSED_MIMES = Sets.newHashSet(
+            MIME_APPLICATION_ZIP, MIME_APPLICATION_X_GZIP, MIME_APPLICATION_TGZ
     );
 
     private static HashMap<String, String> mimeTypeMapping;
@@ -384,6 +388,16 @@ public class MimeTypes {
 
     public static boolean isAudioMimeType(String mimeType) {
         return AUDIO_MIMES.contains(mimeType);
+    }
+
+    public static boolean isCompressedMimeType(String mimeType) {
+        return COMPRESSED_MIMES.contains(mimeType);
+    }
+
+    public static boolean isCompressible(String mimeType) {
+        return !isImageMimeType(mimeType)
+                && !isAudioMimeType(mimeType)
+                && !isCompressedMimeType(mimeType);
     }
 
     /*
