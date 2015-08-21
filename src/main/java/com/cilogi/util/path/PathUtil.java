@@ -26,6 +26,10 @@ import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 @SuppressWarnings({"unused"})
 public class PathUtil {
     static final Logger LOG = LoggerFactory.getLogger(PathUtil.class);
@@ -81,5 +85,50 @@ public class PathUtil {
     public static String dir(String path) {
         int index = path.lastIndexOf("/");
         return (index == -1) ? "" : path.substring(0, index);
+    }
+
+    /**
+     * Given a full path like a/b/c.txt and a relative path such as ../fred.txt
+     * compute the result, which is a/fred.txt
+     * @param fullPath  The full path
+     * @param relativePath  The relative path
+     * @return  The new full path for the relative path
+     */
+    public static String changeRelative(String fullPath, String relativePath) {
+        List<String> fSub = new LinkedList(Arrays.asList(fullPath.split("/")));
+        List<String> rSub = new LinkedList(Arrays.asList(relativePath.split("/")));
+        if (rSub.size() == 0) {
+            return fullPath;
+        }
+        if (fSub.size() == 1) {
+            return relativePath;
+        }
+        // get rid of initial ./  in the relative path
+        if (".".equals(rSub.get(0))) {
+            rSub.remove(0);
+        }
+
+        while ("..".equals(rSub.get(0)) && rSub.size() > 0) {
+            if (fSub.size() < 2) {
+                throw new RuntimeException("Can't change " + fullPath + " with " + relativePath);
+            }
+            fSub.remove(fSub.size()-1);
+            rSub.remove(0);
+        }
+        if (fSub.size() == 0) {
+            return String.join("/", rSub);
+        }
+        if (rSub.size() == 0) {
+            if (fSub.size() == 0) {
+                throw new RuntimeException("Can't change " + fullPath + " with " + relativePath);
+            }
+            fSub.remove(fSub.size()-1);
+            return String.join("/", fSub);
+        }
+        fSub.remove(fSub.size()-1);
+        for (String s : rSub) {
+            fSub.add(s);
+        }
+        return String.join("/", fSub);
     }
 }

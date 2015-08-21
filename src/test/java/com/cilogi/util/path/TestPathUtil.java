@@ -56,4 +56,14 @@ public class TestPathUtil extends TestCase {
         assertFalse(PathUtil.isContentJson(("config.json")));
         assertFalse(PathUtil.isContentJson(("diagrams/map1.json")));
     }
+
+
+    public void testChangeRelative() {
+        assertEquals("fred.txt", PathUtil.changeRelative("wilma.json", "fred.txt"));
+        assertEquals("a/b/fred.txt", PathUtil.changeRelative("a/b/wilma.json", "fred.txt"));
+        assertEquals("a/b/c/d/fred.txt", PathUtil.changeRelative("a/b/wilma.json", "c/d/fred.txt"));
+        assertEquals("a/fred.txt", PathUtil.changeRelative("a/b/wilma.json", "../fred.txt"));
+        assertEquals("a/c/d/fred.txt", PathUtil.changeRelative("a/b/wilma.json", "../c/d/fred.txt"));
+        assertEquals("c/d/fred.txt", PathUtil.changeRelative("a/b/wilma.json", "../../c/d/fred.txt"));
+    }
 }
