@@ -116,19 +116,32 @@ public class PathUtil {
             rSub.remove(0);
         }
         if (fSub.size() == 0) {
-            return String.join("/", rSub);
+            return join("/", rSub);
         }
         if (rSub.size() == 0) {
             if (fSub.size() == 0) {
                 throw new RuntimeException("Can't change " + fullPath + " with " + relativePath);
             }
             fSub.remove(fSub.size()-1);
-            return String.join("/", fSub);
+            return join("/", fSub);
         }
         fSub.remove(fSub.size()-1);
         for (String s : rSub) {
             fSub.add(s);
         }
-        return String.join("/", fSub);
+        return join("/", fSub);
+    }
+
+    private static String join(@NonNull String join, @NonNull List<String> elements) {
+        boolean had = false;
+        StringBuilder builder = new StringBuilder();
+        for (String element : elements) {
+            if (had) {
+                builder.append(join);
+            }
+            builder.append(element);
+            had = true;
+        }
+        return builder.toString();
     }
 }
