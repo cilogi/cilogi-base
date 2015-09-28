@@ -32,7 +32,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class BaseResourceStore<T extends IResource> implements IResourceStore <T> {
+public abstract class BaseResourceStore<T extends IResource> implements IResourceStore {
 
     private static final int MAX_NUMBER_OF_RESOURCES = 25000;
 
@@ -74,10 +74,12 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
     }
 
     @Override
-    public synchronized void put(T resource) {
+    @SuppressWarnings({"unchecked"})
+    public synchronized void put(IResource resource) {
         delete(resource.getPath());
-        resources.add(resource);
+        resources.add((T)resource);
     }
+
 
     @Override
     public synchronized T get(String resourceName) {
@@ -91,7 +93,7 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
 
     @Override
     public synchronized void delete(String resourceName) {
-        for (IResource resource : resources) {
+        for (T resource : resources) {
             if (resource.getPath().equals(resourceName)) {
                 resources.remove(resource);
                 return;
@@ -114,8 +116,8 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
 
     @Override
     public void sort() {
-        Collections.sort(resources, new Comparator<IResource>() {
-            public int compare(IResource a, IResource b) {
+        Collections.sort(resources, new Comparator<T>() {
+            public int compare(T a, T b) {
                 return a.getPath().compareTo(b.getPath());
             }
         });
@@ -135,10 +137,11 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
         return Collections.unmodifiableList(resources);
     }
 
+    @SuppressWarnings({"unused"})
     public void saveToDir(File dir) throws IOException {
         Preconditions.checkArgument(dir.isDirectory());
         if (dir.mkdirs()) {
-            for (IResource resource : getAll()) {
+            for (T resource : getAll()) {
                 String path = resource.getPath();
                 File file = new File(dir, path);
                 if (file.getParentFile().mkdirs()) {

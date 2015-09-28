@@ -26,7 +26,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-public interface IResourceStore<T extends IResource> {
+@SuppressWarnings({"unused"})
+public interface IResourceStore {
 
     public void addExternalResource(String name);
 
@@ -54,7 +55,7 @@ public interface IResourceStore<T extends IResource> {
      * @param resource  the resource to store.  Must be non-null.
      * @throws ResourceStoreException if the store fails
      */
-    public void put(T resource);
+    public void put(IResource resource);
 
     /**
      * Get a resource from a store
@@ -63,7 +64,7 @@ public interface IResourceStore<T extends IResource> {
      * @throws ResourceStoreException if the get fails other than by resource non-existence, in
      * which case the resource may or may not exist.
      */
-    public T get(String resourceName);
+    public IResource get(String resourceName);
 
     /**
      * Delete a resource.  If no error is thrown a resource with that name will not exist any more.
@@ -100,7 +101,7 @@ public interface IResourceStore<T extends IResource> {
      * @param dataSource  The data in the resource
      * @return The new resource
      */
-    public T newResource(String path, IDataSource dataSource);
+    public IResource newResource(String path, IDataSource dataSource);
 
     /**
      * Needed to produce a consistent ordering of the resources
