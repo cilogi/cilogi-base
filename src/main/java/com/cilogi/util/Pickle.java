@@ -42,11 +42,33 @@ public class Pickle {
         return baos.toByteArray();
     }
 
+    public static <T extends Serializable> byte[] pickleClean(T obj) {
+        try {
+            return pickle(obj);
+        } catch (IOException e) {
+            throw new PickleException(e);
+        }
+    }
+
     public static <T extends Serializable> T unpickle(byte[] b, Class<T> cl)
             throws IOException, ClassNotFoundException {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         ObjectInputStream ois = new ObjectInputStream(bais);
         Object o = ois.readObject();
         return cl.cast(o);
+    }
+
+    public static <T extends Serializable> T unpickleClean(byte[] b, Class<T> cl) {
+        try {
+            return unpickle(b, cl);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new PickleException(e);
+        }
+    }
+
+    public static class PickleException extends RuntimeException {
+        PickleException(Exception e) {
+            super(e);
+        }
     }
 }
