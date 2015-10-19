@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
-
+@SuppressWarnings({"unused"})
 public class Pickle {
     static final Logger LOG = LoggerFactory.getLogger(Pickle.class);
 
@@ -33,8 +33,7 @@ public class Pickle {
 
     }
 
-    public static <T extends Serializable> byte[] pickle(T obj)
-            throws IOException {
+    public static  byte[] pickle(Object obj) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(obj);
@@ -42,7 +41,7 @@ public class Pickle {
         return baos.toByteArray();
     }
 
-    public static <T extends Serializable> byte[] pickleClean(T obj) {
+    public static byte[] pickleClean(Object obj) {
         try {
             return pickle(obj);
         } catch (IOException e) {
@@ -50,17 +49,15 @@ public class Pickle {
         }
     }
 
-    public static <T extends Serializable> T unpickle(byte[] b, Class<T> cl)
-            throws IOException, ClassNotFoundException {
+    public static Object unpickle(byte[] b) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         ObjectInputStream ois = new ObjectInputStream(bais);
-        Object o = ois.readObject();
-        return cl.cast(o);
+        return ois.readObject();
     }
 
-    public static <T extends Serializable> T unpickleClean(byte[] b, Class<T> cl) {
+    public static Object unpickleClean(byte[] b) {
         try {
-            return unpickle(b, cl);
+            return unpickle(b);
         } catch (IOException | ClassNotFoundException e) {
             throw new PickleException(e);
         }
