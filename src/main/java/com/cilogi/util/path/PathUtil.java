@@ -21,7 +21,6 @@
 
 package com.cilogi.util.path;
 
-import com.google.common.collect.Lists;
 import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,16 +34,7 @@ public class PathUtil {
     static final Logger LOG = LoggerFactory.getLogger(PathUtil.class);
 
 
-    private static Glob glob = new Glob(Lists.newArrayList(
-            "index.json", "contents/*"
-    ), true);
-
     private PathUtil() {}
-
-    public static boolean isContentJson(@NonNull String path) {
-        String pathLC = path.toLowerCase();
-        return pathLC.endsWith(".json") && glob.match(path);
-    }
 
     public static String rootPathFrom(String path) {
         String[] subs = path.split("/");
@@ -94,6 +84,7 @@ public class PathUtil {
      * @param relativePath  The relative path
      * @return  The new full path for the relative path
      */
+    @SuppressWarnings({"unchecked"})
     public static String changeRelative(String fullPath, String relativePath) {
         List<String> fSub = new LinkedList(Arrays.asList(fullPath.split("/")));
         List<String> rSub = new LinkedList(Arrays.asList(relativePath.split("/")));
