@@ -45,6 +45,11 @@ public class PathUtil {
         return out;
     }
 
+    public static String extensionOf(String path) {
+        int idx = path.lastIndexOf(".");
+        return (idx == -1) ? null : path.substring(idx+1);
+    }
+
     public static String changeExtension(String path, String extension) {
         String end = (extension == null || "".equals(extension)) ? "" : "." + extension;
         int idx = path.lastIndexOf(".");
