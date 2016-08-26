@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings({"unused"})
-public interface IResourceStore {
+public interface IResourceStore extends IResourceLoader {
 
     public void addExternalResource(String name);
 
@@ -64,6 +64,7 @@ public interface IResourceStore {
      * @throws ResourceStoreException if the get fails other than by resource non-existence, in
      * which case the resource may or may not exist.
      */
+    @Override
     public IResource get(String resourceName);
 
     /**
