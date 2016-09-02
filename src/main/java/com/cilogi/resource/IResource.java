@@ -62,4 +62,9 @@ public interface IResource {
      * @return  The url, or null if there is none
      */
     public String getServingUrl();
+
+    /* Metadata utility */
+    public Object firstMeta(String key);
+    public void addMeta(String key, Object object);
+
 }

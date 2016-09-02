@@ -26,9 +26,11 @@ import com.cilogi.util.MimeTypes;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.Date;
 
 // Not sure if I should make this class immutable or not.
@@ -184,4 +186,18 @@ public class Resource implements IResource, Comparable<Resource> {
     public int compareTo(Resource resource) {
         return getPath().compareTo(resource.getPath());
     }
+
+    @Override
+    public Object firstMeta(@NonNull String key) {
+        Collection<Object> meta = getMetaData().get(key);
+        return (meta.size() == 0) ? null : meta.iterator().next();
+    }
+
+    @Override
+    public void addMeta(@NonNull String key, Object object) {
+        Multimap<String,Object> map = getMetaData();
+        map.put(key, object);
+        metaData(map);
+    }
+
 }

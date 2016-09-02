@@ -84,6 +84,13 @@ public class ResourceWrapper implements IResource {
         return (o instanceof IResource) && resource.equals(o);
     }
 
+    @Override
+    public Object firstMeta(String key) { return resource.firstMeta(key); }
+
+    @Override
+    public void addMeta(String key, Object object) { resource.addMeta(key, object); }
+
+
     // Som useful extra stuff
     public Object getFirstMetaData(String key) {
         Collection<Object> all =  getMetaData().get(key);
