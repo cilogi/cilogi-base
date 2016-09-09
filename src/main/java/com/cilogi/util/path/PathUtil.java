@@ -36,6 +36,11 @@ public class PathUtil {
 
     private PathUtil() {}
 
+    public static boolean isExternalURL(@NonNull String path) {
+        String lp = path.toLowerCase();
+        return lp.startsWith("http://") || lp.startsWith("https://");
+    }
+
     public static String rootPathFrom(String path) {
         String[] subs = path.split("/");
         String out = "";
