@@ -88,7 +88,7 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
     }
 
     @Override
-    public void store() {
+    public synchronized void store() {
         throw new UnsupportedOperationException("initialize not implemented");
     }
 
@@ -96,12 +96,12 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
     public abstract T newResource(String path, IDataSource dataSource);
 
     
-    protected List<T> getAll() {
+    protected synchronized List<T> getAll() {
         return Collections.unmodifiableList(resources);
     }
 
     @SuppressWarnings({"unused"})
-    public void saveToDir(File dir) throws IOException {
+    public synchronized void saveToDir(File dir) throws IOException {
         Preconditions.checkArgument(dir.isDirectory());
         if (dir.mkdirs()) {
             for (T resource : getAll()) {
