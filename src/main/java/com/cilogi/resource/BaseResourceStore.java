@@ -24,43 +24,24 @@ package com.cilogi.resource;
 import com.cilogi.util.IOUtil;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class BaseResourceStore<T extends IResource> implements IResourceStore {
 
-    private static final int MAX_NUMBER_OF_RESOURCES = 25000;
-
     protected final List<T> resources;
-    private final Set<String> externalResourceNames;
 
-    public BaseResourceStore() {
+    protected BaseResourceStore() {
         resources = Collections.synchronizedList(Lists.<T>newLinkedList());
-        externalResourceNames = Collections.synchronizedSet(Sets.<String>newLinkedHashSet());
-    }
-
-    @Override
-    public void addExternalResource(String name) {
-        externalResourceNames.add(name);
-    }
-
-    @Override
-    public Set<String> getExternalResourceNames() {
-        return Collections.unmodifiableSet(externalResourceNames);
     }
 
     @Override
     public synchronized List<String> list(String pattern) {
-        return list(pattern, MAX_NUMBER_OF_RESOURCES);
-    }
-
-    @Override
-    public synchronized List<String> list(String pattern, int maxNumberToReturn) {
         Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         List<String> out = Lists.newLinkedList();
         for (IResource resource : resources) {
@@ -114,24 +95,6 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
     @Override
     public abstract T newResource(String path, IDataSource dataSource);
 
-    @Override
-    public void sort() {
-        Collections.sort(resources, new Comparator<T>() {
-            public int compare(T a, T b) {
-                return a.getPath().compareTo(b.getPath());
-            }
-        });
-
-    }
-
-    @Override
-    public IResource importResource(String path, IResource resource) throws IOException {
-        return new Resource(path)
-                .dataSource(resource.getDataSource())
-                .metaData(resource.getMetaData())
-                .mimeType(resource.getMimeType())
-                .modified(resource.getModified());
-    }
     
     protected List<T> getAll() {
         return Collections.unmodifiableList(resources);

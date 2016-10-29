@@ -27,35 +27,23 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings({"unused"})
-public interface IResourceStore extends IResourceLoader {
+interface IResourceStore extends IResourceLoader {
 
-    public void addExternalResource(String name);
-
-    public Set<String> getExternalResourceNames();
 
     /**
      * List resources in the store matching a particular prefix.
-     * @param pattern The matching pattern, a regex
+     * @param pattern The matching pattern, a regex, non null
      * @return  A list of the resources with this pattern.
      * @throws ResourceStoreException if there is an issue.
      */
-    public List<String> list(String pattern);
-
-    /**
-     * List resources in the store matching a particular prefix.
-     * @param pattern The matching pattern, a regex
-     * @param maxNumberToReturn  Limits the maximum number of objects that can be returned.
-     * @return  A list of the resources with this pattern.  There may be more than the max.
-     * @throws ResourceStoreException if there is an issue, or the max is too many.
-     */
-    public List<String> list(String pattern, int maxNumberToReturn);
+    List<String> list(String pattern);
 
     /**
      * Store a resource
      * @param resource  the resource to store.  Must be non-null.
      * @throws ResourceStoreException if the store fails
      */
-    public void put(IResource resource);
+    void put(IResource resource);
 
     /**
      * Get a resource from a store
@@ -65,7 +53,7 @@ public interface IResourceStore extends IResourceLoader {
      * which case the resource may or may not exist.
      */
     @Override
-    public IResource get(String resourceName);
+    IResource get(String resourceName);
 
     /**
      * Delete a resource.  If no error is thrown a resource with that name will not exist any more.
@@ -74,27 +62,17 @@ public interface IResourceStore extends IResourceLoader {
      * the operation may or may not have succeeded.  There is no exception if the resource doesn't exist.
      * @throws UnsupportedOperationException if this object does not support the (optional) operation
      */
-    public void delete(String resourceName);
+    void delete(String resourceName);
 
     /**
      * Delete all resources
      */
-    public void clear();
+    void clear();
 
     /**
      * Output this store to some form of permanent memory
      */
-    public void store();
-
-    /**
-     * Take a resource and do any necessary processing of it so it can be added.
-     * Note that the resource is <em>not</em> added.
-     * @param path Path which the imported resource will have
-     * @param resource The resource to import
-     * @return A new resource with the correct path and with any filters applied
-     * @throws IOException If any filters blow up
-     */
-    public IResource importResource(String path, IResource resource) throws IOException;
+    void store();
 
     /**
      * Create a new resource compatible with this store
@@ -102,18 +80,14 @@ public interface IResourceStore extends IResourceLoader {
      * @param dataSource  The data in the resource
      * @return The new resource
      */
-    public IResource newResource(String path, IDataSource dataSource);
+    IResource newResource(String path, IDataSource dataSource);
 
-    /**
-     * Needed to produce a consistent ordering of the resources
-     */
-    public void sort();
 
-    public static class ResourceStoreException extends RuntimeException {
-        public ResourceStoreException(String s) {
+    class ResourceStoreException extends RuntimeException {
+        ResourceStoreException(String s) {
             super(s);
         }
-        public ResourceStoreException(Exception e) {
+        ResourceStoreException(Exception e) {
             super(e);
         }
     }
