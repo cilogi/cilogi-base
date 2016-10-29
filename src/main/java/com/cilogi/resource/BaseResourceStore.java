@@ -23,29 +23,27 @@ package com.cilogi.resource;
 
 import com.cilogi.util.IOUtil;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
+import lombok.NonNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class BaseResourceStore<T extends IResource> implements IResourceStore {
 
-    protected final List<T> resources;
+    private final Map<String,T> resources;
 
     protected BaseResourceStore() {
-        resources = Collections.synchronizedList(Lists.<T>newLinkedList());
+        resources = Collections.synchronizedMap(new LinkedHashMap<String,T>());
     }
 
     @Override
-    public synchronized List<String> list(String pattern) {
+    public synchronized List<String> list(@NonNull String pattern) {
         Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
-        List<String> out = Lists.newLinkedList();
-        for (IResource resource : resources) {
-            String path = resource.getPath();
+        List<String> out = new ArrayList<>();
+        for (String path : resources.keySet()) {
             Matcher m = p.matcher(path);
             if (m.matches()) {
                 out.add(path);
@@ -56,30 +54,19 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
 
     @Override
     @SuppressWarnings({"unchecked"})
-    public synchronized void put(IResource resource) {
-        delete(resource.getPath());
-        resources.add((T)resource);
+    public synchronized void put(@NonNull IResource resource) {
+        resources.put(resource.getPath(), (T)resource);
     }
 
 
     @Override
-    public synchronized T get(String resourceName) {
-        for (T resource : resources) {
-            if (resource.getPath().equals(resourceName)) {
-                return resource;
-            }
-        }
-        return null;
+    public synchronized T get(@NonNull String resourceName) {
+        return resources.get(resourceName);
     }
 
     @Override
     public synchronized void delete(String resourceName) {
-        for (T resource : resources) {
-            if (resource.getPath().equals(resourceName)) {
-                resources.remove(resource);
-                return;
-            }
-        }
+        resources.remove(resourceName);
     }
 
     @Override
@@ -96,8 +83,8 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
     public abstract T newResource(String path, IDataSource dataSource);
 
     
-    protected synchronized List<T> getAll() {
-        return Collections.unmodifiableList(resources);
+    protected synchronized Collection<T> getAll() {
+        return Collections.unmodifiableCollection(resources.values());
     }
 
     @SuppressWarnings({"unused"})

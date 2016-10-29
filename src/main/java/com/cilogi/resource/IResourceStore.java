@@ -21,13 +21,10 @@
 
 package com.cilogi.resource;
 
-
-import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 @SuppressWarnings({"unused"})
-interface IResourceStore extends IResourceLoader {
+public interface IResourceStore extends IResourceLoader {
 
 
     /**
