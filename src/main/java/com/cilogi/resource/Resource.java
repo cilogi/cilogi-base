@@ -44,6 +44,7 @@ public class Resource implements IResource, Comparable<Resource> {
     private IDataSource dataSource;
     private Date modified;
     private String mimeType;
+    private String contentEncoding;
     private String etag;
     private Multimap<String,Object> metaData;
 
@@ -63,6 +64,21 @@ public class Resource implements IResource, Comparable<Resource> {
         this.dataSource = dataSource;
     }
 
+    @Override
+    public Resource copy() {
+        Resource copy = new Resource(path, dataSource.copy());
+        copy(copy);
+        return copy;
+    }
+
+    protected void copy(Resource copy) {
+        copy.modified(modified);
+        copy.mimeType(mimeType);
+        copy.contentEncoding(contentEncoding);
+        copy.etag(etag);
+        copy.metaData(LinkedHashMultimap.create(metaData));
+    }
+
 
     @Override
     public Resource modified(Date modified) {
@@ -75,6 +91,12 @@ public class Resource implements IResource, Comparable<Resource> {
     public Resource mimeType(String mimeType) {
         this.mimeType = mimeType; return this;
     }
+
+    @Override
+    public Resource contentEncoding(String s) {
+        this.contentEncoding = s; return this;
+    }
+
 
     @Override
     public Resource dataSource(IDataSource dataSource) {
@@ -129,6 +151,11 @@ public class Resource implements IResource, Comparable<Resource> {
         }
         int dot = path.lastIndexOf(".");
         return (dot == -1) ? "application/binary" : MimeTypes.getMimeType(path.substring(dot + 1));
+    }
+
+    @Override
+    public String getContentEncoding() {
+        return contentEncoding;
     }
 
     @Override

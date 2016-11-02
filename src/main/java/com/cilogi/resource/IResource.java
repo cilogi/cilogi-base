@@ -27,19 +27,22 @@ import java.util.Date;
 
 
 public interface IResource {
-    public String getPath();
-    public byte[] getData();
-    public String getMimeType();
-    public Date getModified();
-    public String getEtag();
-    public Multimap<String,Object> getMetaData();
-    public IDataSource getDataSource();
+    String getPath();
+    byte[] getData();
+    String getMimeType();
+    Date getModified();
+    String getEtag();
+    String getContentEncoding();
+    Multimap<String,Object> getMetaData();
+    IDataSource getDataSource();
+    IResource copy();
 
-    public IResource mimeType(String s);
-    public IResource modified(Date d);
-    public IResource etag(String s);
-    public IResource dataSource(IDataSource dataSource);
-    public IResource data(byte[] data);
+    IResource mimeType(String s);
+    IResource modified(Date d);
+    IResource etag(String s);
+    IResource contentEncoding(String s);
+    IResource dataSource(IDataSource dataSource);
+    IResource data(byte[] data);
 
     /**
      * Change the path of a resource
@@ -48,23 +51,23 @@ public interface IResource {
      * should be nothing shared, so that the old and new resources
      * are independent.
      */
-    public IResource withPath(String path);
+    IResource withPath(String path);
 
     /**
      * Set the metadata
      * @param metaData The data to be passed in.  Cannot be null
      * @return  The same resource with metadata added.
      */
-    public IResource metaData(Multimap<String, Object> metaData);
+    IResource metaData(Multimap<String, Object> metaData);
 
     /**
      * Gat an alternative, efficient, location from which this resource can be served
      * @return  The url, or null if there is none
      */
-    public String getServingUrl();
+    String getServingUrl();
 
     /* Metadata utility */
-    public Object firstMeta(String key);
-    public void addMeta(String key, Object object);
+    Object firstMeta(String key);
+    void addMeta(String key, Object object);
 
 }
