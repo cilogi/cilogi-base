@@ -101,4 +101,15 @@ public abstract class BaseResourceStore<T extends IResource> implements IResourc
         }
     }
 
+    @SuppressWarnings({"unused"})
+    public synchronized IResource importResource(String path, IResource resource) throws IOException {
+        IResource newResource = newResource(path, resource.getDataSource())
+                .metaData(resource.getMetaData())
+                .mimeType(resource.getMimeType())
+                .contentEncoding(resource.getContentEncoding())
+                .modified(resource.getModified());
+        put(newResource);
+        return newResource;
+    }
+
 }
