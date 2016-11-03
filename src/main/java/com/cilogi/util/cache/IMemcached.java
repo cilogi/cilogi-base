@@ -27,5 +27,7 @@ public interface IMemcached {
 
     public byte[] get(String key);
 
+    public boolean has(String key);
+
     public void close();
 }

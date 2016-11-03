@@ -24,6 +24,7 @@ package com.cilogi.util.cache;
 import com.cilogi.util.Digest;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
+import lombok.NonNull;
 import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.MemcachedClient;
 import org.apache.commons.lang3.SerializationUtils;
@@ -70,6 +71,11 @@ public class Memcached implements IMemcached {
     public byte[] get(String key) {
         Preconditions.checkNotNull(key, "memcached key to retrieve can't be null");
         return (byte[])client.get(makeSafe(key));
+    }
+
+    @Override
+    public boolean has(@NonNull String key) {
+        return get(key) != null;
     }
 
     @Override

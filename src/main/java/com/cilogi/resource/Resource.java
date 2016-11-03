@@ -109,6 +109,7 @@ public class Resource implements IResource, Comparable<Resource> {
     public Resource data(byte[] data) {
         Preconditions.checkNotNull(data);
         dataSource.setData(data);
+        etag((data == null) ? null : Digest.digestHex(data, Digest.Algorithm.MD5));
         return this;
     }
 
