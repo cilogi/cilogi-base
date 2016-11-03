@@ -43,6 +43,8 @@ public class ResourceWrapper implements IResource {
     @Override
     public String getPath() { return resource.getPath(); }
     @Override
+    public IResource copy() { return resource.copy(); }
+    @Override
     public byte[] getData() { return resource.getData(); }
     @Override
     public IResource data(byte[] data) { resource.data(data); return this; }
@@ -50,6 +52,8 @@ public class ResourceWrapper implements IResource {
     public IDataSource getDataSource() {return resource.getDataSource();}
     @Override
     public String getMimeType() { return resource.getMimeType(); }
+    @Override
+    public String getContentEncoding() { return resource.getContentEncoding(); }
     @Override
     public Date getModified() { return resource.getModified(); }
     @Override
@@ -61,6 +65,8 @@ public class ResourceWrapper implements IResource {
     public IResource dataSource(IDataSource data) { resource.dataSource(data); return this; }
     @Override
     public IResource mimeType(String s) { resource.mimeType(s); return this; }
+    @Override
+    public IResource contentEncoding(String s) { resource.contentEncoding(s); return this; }
     @Override
     public IResource modified(Date d) { resource.modified(d); return this; }
     @Override
