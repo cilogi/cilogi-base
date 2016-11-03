@@ -48,5 +48,7 @@ public class MemoryCache implements IMemcached {
 
     public boolean has(@NonNull String key) { return cache.containsKey(key); }
 
+    public boolean remove(@NonNull String key) { return cache.remove(key) != null ; }
+
     public void close() {}
 }

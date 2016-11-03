@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 
 public class Memcached implements IMemcached {
@@ -76,6 +77,15 @@ public class Memcached implements IMemcached {
     @Override
     public boolean has(@NonNull String key) {
         return get(key) != null;
+    }
+
+    @Override
+    public boolean remove(@NonNull String key) {
+        try {
+            return client.delete(key).get();
+        } catch (InterruptedException | ExecutionException e) {
+            return false;
+        }
     }
 
     @Override

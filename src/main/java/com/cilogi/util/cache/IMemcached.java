@@ -29,5 +29,7 @@ public interface IMemcached {
 
     public boolean has(String key);
 
+    public boolean remove(String key);
+
     public void close();
 }
