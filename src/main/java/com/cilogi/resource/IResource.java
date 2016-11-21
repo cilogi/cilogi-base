@@ -26,7 +26,7 @@ import com.google.common.collect.Multimap;
 import java.util.Date;
 
 
-public interface IResource {
+public interface IResource extends IResourceData {
     String getPath();
     byte[] getData();
     String getMimeType();
