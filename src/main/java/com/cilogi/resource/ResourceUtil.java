@@ -26,8 +26,6 @@ import com.cilogi.util.IOUtil;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
@@ -72,16 +70,6 @@ public class ResourceUtil {
     public static String resource2string(IResource resource) {
         Preconditions.checkNotNull(resource, "resource is null");
         return new String(resource.getData(), Charsets.UTF_8);
-    }
-
-    public static JSONObject resource2json(IResource resource) {
-        Preconditions.checkNotNull(resource, "resource is null");
-        try {
-            return new JSONObject(resource2string(resource));
-        } catch (JSONException e) {
-            LOG.warn("Can't parse resource " + resource.getPath() + " as JSON: " + e.getMessage());
-            return null;
-        }
     }
     
     public static List<String> resource2lines(IResource resource) {
